@@ -1,0 +1,20 @@
+{
+    "name": "mio",
+    "version": "0.0.0",
+    "dependencies": [
+        {
+            "name": "sdl2"
+        },
+        {
+            "name": "sdl2-image",
+            "features": [ "libjpeg-turbo" ]
+        },
+        {
+            "name": "sdl2-ttf"
+        },
+        {
+            "name": "sdl2-mixer",
+            "features": [ "mpg123" ]
+        }
+    ]
+}
