@@ -39,6 +39,15 @@ namespace mio
         return controller_;
     }
 
+    std::optional<int> gamepad::index() const
+    {
+        if (int index = SDL_GameControllerGetPlayerIndex(controller_); index != -1)
+        {
+            return index;
+        }
+        return std::nullopt;
+    }
+
     int gamepad::id() const
     {
         SDL_Joystick* joystick = SDL_GameControllerGetJoystick(controller_);

@@ -19,6 +19,8 @@ namespace mio
 
         SDL_GameController* native_handle() const;
 
+        std::optional<int> index() const;
+
         int id() const;
 
         bool is_connected() const;
