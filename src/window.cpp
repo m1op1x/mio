@@ -7,7 +7,6 @@ namespace mio
 {
     window::window(const std::string& title, int width, int height)
         : window_(nullptr, nullptr)
-        , active_(true)
     {
         window_ =
         {
@@ -23,7 +22,6 @@ namespace mio
 
     window::window(SDL_Window* window)
         : window_(window, SDL_DestroyWindow)
-        , active_(true)
     {
         if (window_ == nullptr)
         {
@@ -42,51 +40,25 @@ namespace mio
 
     unsigned int window::id() const
     {
-        if (active_)
-        {
-            return SDL_GetWindowID(window_.get());
-        }
-        return 0;
-    }
-
-    bool window::is_open() const
-    {
-        return active_;
-    }
-
-    void window::close()
-    {
-        SDL_HideWindow(window_.get());
-        active_ = false;
+        return SDL_GetWindowID(window_.get());
     }
 
     void window::resize(int width, int height)
     {
-        if (active_)
-        {
-            SDL_SetWindowSize(window_.get(), width, height);
-        }
+        SDL_SetWindowSize(window_.get(), width, height);
     }
 
     int window::width() const
     {
-        if (active_)
-        {
-            int width;
-            SDL_GetWindowSize(window_.get(), &width, nullptr);
-            return width;
-        }
-        return 0;
+        int width;
+        SDL_GetWindowSize(window_.get(), &width, nullptr);
+        return width;
     }
 
     int window::height() const
     {
-        if (active_)
-        {
-            int height;
-            SDL_GetWindowSize(window_.get(), nullptr, &height);
-            return height;
-        }
-        return 0;
+        int height;
+        SDL_GetWindowSize(window_.get(), nullptr, &height);
+        return height;
     }
 }

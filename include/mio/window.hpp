@@ -28,10 +28,6 @@ namespace mio
 
         unsigned int id() const;
 
-        bool is_open() const;
-
-        void close();
-
         void resize(int width, int height);
 
         int width() const;
@@ -40,6 +36,5 @@ namespace mio
 
     private:
         std::unique_ptr<SDL_Window, void (*)(SDL_Window*)> window_;
-        bool active_;
     };
 }
