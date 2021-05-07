@@ -39,6 +39,54 @@ namespace mio
     }
 
     template <typename T>
+    void circle<T>::left(T value)
+    {
+        x = value + radius;
+    }
+
+    template <typename T>
+    T circle<T>::left() const
+    {
+        return x - radius;
+    }
+
+    template <typename T>
+    void circle<T>::right(T value)
+    {
+        x = value - radius;
+    }
+
+    template <typename T>
+    T circle<T>::right() const
+    {
+        return x + radius;
+    }
+
+    template <typename T>
+    void circle<T>::top(T value)
+    {
+        y = value + radius;
+    }
+
+    template <typename T>
+    T circle<T>::top() const
+    {
+        return y - radius;
+    }
+
+    template <typename T>
+    void circle<T>::bottom(T value)
+    {
+        y = value - radius;
+    }
+
+    template <typename T>
+    T circle<T>::bottom() const
+    {
+        return y + radius;
+    }
+
+    template <typename T>
     bool circle<T>::contains(point<T> point) const
     {
         T dx = point.x - x;

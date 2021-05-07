@@ -17,6 +17,22 @@ namespace mio
 
         point<T> position() const;
 
+        void left(T value);
+
+        T left() const;
+
+        void right(T value);
+
+        T right() const;
+
+        void top(T value);
+
+        T top() const;
+
+        void bottom(T value);
+
+        T bottom() const;
+
         bool contains(point<T> point) const;
 
         void move(point<T> delta);
