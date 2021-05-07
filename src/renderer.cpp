@@ -12,7 +12,7 @@ namespace mio
     {
         renderer_ =
         {
-            SDL_CreateRenderer(window.get(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE | SDL_RENDERER_PRESENTVSYNC),
+            SDL_CreateRenderer(window.native_handle(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE | SDL_RENDERER_PRESENTVSYNC),
             SDL_DestroyRenderer
         };
 
@@ -35,9 +35,14 @@ namespace mio
     {
     }
 
+    SDL_Renderer* renderer::native_handle() const
+    {
+        return renderer_.get();
+    }
+
     void renderer::target(texture* target)
     {
-        if (SDL_SetRenderTarget(renderer_.get(), (target) ? target->get() : nullptr))
+        if (SDL_SetRenderTarget(renderer_.get(), (target) ? target->native_handle() : nullptr))
         {
             throw sdl_error();
         }
@@ -224,7 +229,7 @@ namespace mio
             static_cast<float>(texture.height())
         };
 
-        if (SDL_RenderCopyF(renderer_.get(), texture.get(), nullptr, &sdl_dstrect))
+        if (SDL_RenderCopyF(renderer_.get(), texture.native_handle(), nullptr, &sdl_dstrect))
         {
             throw sdl_error();
         }
@@ -260,7 +265,7 @@ namespace mio
             scale.y * origin.y
         };
 
-        if (SDL_RenderCopyExF(renderer_.get(), texture.get(), nullptr, &sdl_dstrect, rotation, &sdl_center, sdl_flip))
+        if (SDL_RenderCopyExF(renderer_.get(), texture.native_handle(), nullptr, &sdl_dstrect, rotation, &sdl_center, sdl_flip))
         {
             throw sdl_error();
         }
@@ -276,7 +281,7 @@ namespace mio
             destination.height
         };
 
-        if (SDL_RenderCopyF(renderer_.get(), texture.get(), nullptr, &sdl_dstrect))
+        if (SDL_RenderCopyF(renderer_.get(), texture.native_handle(), nullptr, &sdl_dstrect))
         {
             throw sdl_error();
         }
@@ -300,7 +305,7 @@ namespace mio
             static_cast<float>(source.height)
         };
 
-        if (SDL_RenderCopyF(renderer_.get(), texture.get(), &sdl_srcrect, &sdl_dstrect))
+        if (SDL_RenderCopyF(renderer_.get(), texture.native_handle(), &sdl_srcrect, &sdl_dstrect))
         {
             throw sdl_error();
         }
@@ -344,7 +349,7 @@ namespace mio
             scale.y * origin.y
         };
 
-        if (SDL_RenderCopyExF(renderer_.get(), texture.get(), &sdl_srcrect, &sdl_dstrect, rotation, &sdl_center, sdl_flip))
+        if (SDL_RenderCopyExF(renderer_.get(), texture.native_handle(), &sdl_srcrect, &sdl_dstrect, rotation, &sdl_center, sdl_flip))
         {
             throw sdl_error();
         }
@@ -368,7 +373,7 @@ namespace mio
             destination.height
         };
 
-        if (SDL_RenderCopyF(renderer_.get(), texture.get(), &sdl_srcrect, &sdl_dstrect))
+        if (SDL_RenderCopyF(renderer_.get(), texture.native_handle(), &sdl_srcrect, &sdl_dstrect))
         {
             throw sdl_error();
         }
@@ -377,10 +382,5 @@ namespace mio
     void renderer::present()
     {
         SDL_RenderPresent(renderer_.get());
-    }
-
-    SDL_Renderer* renderer::get() const
-    {
-        return renderer_.get();
     }
 }

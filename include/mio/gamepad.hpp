@@ -17,6 +17,8 @@ namespace mio
 
         gamepad(SDL_GameController* controller);
 
+        SDL_GameController* native_handle() const;
+
         unsigned int id() const;
 
         bool is_connected() const;
@@ -24,8 +26,6 @@ namespace mio
         bool is_pressed(gamepad_button button) const;
 
         float position(gamepad_axis axis) const;
-
-        SDL_GameController* get() const;
 
     private:
         SDL_GameController* controller_;

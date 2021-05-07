@@ -25,11 +25,11 @@ namespace mio
 
         ~font();
 
+        TTF_Font* native_handle() const;
+
         rectangle<int> measure(const std::string& text) const;
 
         image render(const std::string& text, mio::color color) const;
-
-        TTF_Font* get() const;
 
     private:
         std::unique_ptr<TTF_Font, void (*)(TTF_Font*)> font_;

@@ -35,6 +35,11 @@ namespace mio
     {
     }
 
+    SDL_Window* window::native_handle() const
+    {
+        return window_.get();
+    }
+
     unsigned int window::id() const
     {
         if (active_)
@@ -83,10 +88,5 @@ namespace mio
             return height;
         }
         return 0;
-    }
-
-    SDL_Window* window::get() const
-    {
-        return window_.get();
     }
 }

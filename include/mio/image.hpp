@@ -27,11 +27,11 @@ namespace mio
 
         ~image();
 
+        SDL_Surface* native_handle() const;
+
         unsigned int width() const;
 
         unsigned int height() const;
-
-        SDL_Surface* get() const;
 
     private:
         std::unique_ptr<SDL_Surface, void (*)(SDL_Surface*)> surface_;

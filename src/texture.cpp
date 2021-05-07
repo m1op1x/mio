@@ -13,7 +13,7 @@ namespace mio
     {
         texture_ =
         {
-            SDL_CreateTexture(renderer.get(), SDL_PIXELFORMAT_RGBA32, detail::convert_texture_access(access), width, height),
+            SDL_CreateTexture(renderer.native_handle(), SDL_PIXELFORMAT_RGBA32, detail::convert_texture_access(access), width, height),
             SDL_DestroyTexture
         };
 
@@ -39,7 +39,7 @@ namespace mio
 
         texture_ =
         {
-            SDL_CreateTextureFromSurface(renderer.get(), surface.get()),
+            SDL_CreateTextureFromSurface(renderer.native_handle(), surface.get()),
             SDL_DestroyTexture
         };
 
@@ -54,7 +54,7 @@ namespace mio
     {
         texture_ =
         {
-            SDL_CreateTextureFromSurface(renderer.get(), image.get()),
+            SDL_CreateTextureFromSurface(renderer.native_handle(), image.native_handle()),
             SDL_DestroyTexture
         };
 
@@ -75,6 +75,11 @@ namespace mio
 
     texture::~texture()
     {
+    }
+
+    SDL_Texture* texture::native_handle() const
+    {
+        return texture_.get();
     }
 
     void texture::set_color(color color)
@@ -101,10 +106,5 @@ namespace mio
         int height = 0;
         SDL_QueryTexture(texture_.get(), nullptr, nullptr, nullptr, &height);
         return height;
-    }
-
-    SDL_Texture* texture::get() const
-    {
-        return texture_.get();
     }
 }

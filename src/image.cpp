@@ -58,6 +58,11 @@ namespace mio
     {
     }
 
+    SDL_Surface* image::native_handle() const
+    {
+        return surface_.get();
+    }
+
     unsigned int image::width() const
     {
         return surface_->w;
@@ -66,10 +71,5 @@ namespace mio
     unsigned int image::height() const
     {
         return surface_->h;
-    }
-
-    SDL_Surface* image::get() const
-    {
-        return surface_.get();
     }
 }

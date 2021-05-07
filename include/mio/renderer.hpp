@@ -31,6 +31,8 @@ namespace mio
 
         ~renderer();
 
+        SDL_Renderer* native_handle() const;
+
         void target(texture* target);
 
         void clear(color color);
@@ -60,8 +62,6 @@ namespace mio
         void draw_texture(const texture& texture, rectangle<int> source, rectangle<float> destination);
 
         void present();
-
-        SDL_Renderer* get() const;
 
     private:
         std::unique_ptr<SDL_Renderer, void (*)(SDL_Renderer*)> renderer_;

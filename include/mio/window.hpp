@@ -24,6 +24,8 @@ namespace mio
 
         ~window();
 
+        SDL_Window* native_handle() const;
+
         unsigned int id() const;
 
         bool is_open() const;
@@ -35,8 +37,6 @@ namespace mio
         unsigned int width() const;
 
         unsigned int height() const;
-
-        SDL_Window* get() const;
 
     private:
         std::unique_ptr<SDL_Window, void (*)(SDL_Window*)> window_;

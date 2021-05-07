@@ -33,13 +33,13 @@ namespace mio
 
         ~texture();
 
+        SDL_Texture* native_handle() const;
+
         void set_color(color color);
 
         unsigned int width() const;
 
         unsigned int height() const;
-
-        SDL_Texture* get() const;
 
     private:
         std::unique_ptr<SDL_Texture, void (*)(SDL_Texture*)> texture_;

@@ -25,6 +25,11 @@ namespace mio
     {
     }
 
+    TTF_Font* font::native_handle() const
+    {
+        return font_.get();
+    }
+
     rectangle<int> font::measure(const std::string& text) const
     {
         rectangle<int> bounds;
@@ -57,10 +62,5 @@ namespace mio
         }
 
         return image(surface.release());
-    }
-
-    TTF_Font* font::get() const
-    {
-        return font_.get();
     }
 }

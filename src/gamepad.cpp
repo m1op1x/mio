@@ -34,6 +34,11 @@ namespace mio
         }
     }
 
+    SDL_GameController* gamepad::native_handle() const
+    {
+        return controller_;
+    }
+
     unsigned int gamepad::id() const
     {
         SDL_Joystick* joystick = SDL_GameControllerGetJoystick(controller_);
@@ -66,10 +71,5 @@ namespace mio
     {
         Sint16 position = SDL_GameControllerGetAxis(controller_, detail::convert_gamepad_axis(axis));
         return detail::normalize_gamepad_axis(position);
-    }
-
-    SDL_GameController* gamepad::get() const
-    {
-        return controller_;
     }
 }
