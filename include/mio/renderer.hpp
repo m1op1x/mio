@@ -1,5 +1,6 @@
 #pragma once
 
+#include <mio/window.hpp>
 #include <mio/rectangle.hpp>
 #include <mio/circle.hpp>
 #include <mio/point.hpp>
@@ -10,8 +11,6 @@ struct SDL_Renderer;
 
 namespace mio
 {
-    class window;
-
     class texture;
 
     class renderer

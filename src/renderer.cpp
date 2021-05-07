@@ -1,7 +1,6 @@
 #include <mio/renderer.hpp>
 
 #include <mio/exception.hpp>
-#include <mio/window.hpp>
 #include <mio/texture.hpp>
 #include <SDL_render.h>
 
