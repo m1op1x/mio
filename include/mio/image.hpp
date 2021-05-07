@@ -11,7 +11,7 @@ namespace mio
     class image
     {
     public:
-        image(unsigned int width, unsigned int height, color color);
+        image(int width, int height, color color);
 
         image(const std::string& filename);
 
@@ -29,9 +29,9 @@ namespace mio
 
         SDL_Surface* native_handle() const;
 
-        unsigned int width() const;
+        int width() const;
 
-        unsigned int height() const;
+        int height() const;
 
     private:
         std::unique_ptr<SDL_Surface, void (*)(SDL_Surface*)> surface_;

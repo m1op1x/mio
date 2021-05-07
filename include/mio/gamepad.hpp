@@ -11,15 +11,15 @@ namespace mio
     class gamepad
     {
     public:
-        static std::optional<gamepad> from_index(unsigned int index);
+        static std::optional<gamepad> from_index(int index);
 
-        static std::optional<gamepad> from_id(unsigned int id);
+        static std::optional<gamepad> from_id(int id);
 
         gamepad(SDL_GameController* controller);
 
         SDL_GameController* native_handle() const;
 
-        unsigned int id() const;
+        int id() const;
 
         bool is_connected() const;
 

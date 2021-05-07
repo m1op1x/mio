@@ -10,7 +10,7 @@ namespace mio
     class window
     {
     public:
-        window(const std::string& title, unsigned int width, unsigned int height);
+        window(const std::string& title, int width, int height);
 
         window(SDL_Window* window);
 
@@ -32,11 +32,11 @@ namespace mio
 
         void close();
 
-        void resize(unsigned int width, unsigned int height);
+        void resize(int width, int height);
 
-        unsigned int width() const;
+        int width() const;
 
-        unsigned int height() const;
+        int height() const;
 
     private:
         std::unique_ptr<SDL_Window, void (*)(SDL_Window*)> window_;

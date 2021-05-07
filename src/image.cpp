@@ -6,7 +6,7 @@
 
 namespace mio
 {
-    image::image(unsigned int width, unsigned int height, color color)
+    image::image(int width, int height, color color)
         : surface_(nullptr, nullptr)
     {
         surface_ =
@@ -21,7 +21,7 @@ namespace mio
         }
 
         auto pixels = static_cast<std::uint8_t*>(surface_->pixels);
-        for (std::size_t i = 0; i < width * height; i++)
+        for (int i = 0; i < width * height; i++)
         {
             pixels[i * 4 + 0] = color.r;
             pixels[i * 4 + 1] = color.g;
@@ -63,12 +63,12 @@ namespace mio
         return surface_.get();
     }
 
-    unsigned int image::width() const
+    int image::width() const
     {
         return surface_->w;
     }
 
-    unsigned int image::height() const
+    int image::height() const
     {
         return surface_->h;
     }

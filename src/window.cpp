@@ -5,7 +5,7 @@
 
 namespace mio
 {
-    window::window(const std::string& title, unsigned int width, unsigned int height)
+    window::window(const std::string& title, int width, int height)
         : window_(nullptr, nullptr)
         , active_(true)
     {
@@ -60,7 +60,7 @@ namespace mio
         active_ = false;
     }
 
-    void window::resize(unsigned int width, unsigned int height)
+    void window::resize(int width, int height)
     {
         if (active_)
         {
@@ -68,7 +68,7 @@ namespace mio
         }
     }
 
-    unsigned int window::width() const
+    int window::width() const
     {
         if (active_)
         {
@@ -79,7 +79,7 @@ namespace mio
         return 0;
     }
 
-    unsigned int window::height() const
+    int window::height() const
     {
         if (active_)
         {

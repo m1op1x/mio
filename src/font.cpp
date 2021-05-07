@@ -6,7 +6,7 @@
 
 namespace mio
 {
-    font::font(const std::string& filename, unsigned int size)
+    font::font(const std::string& filename, int size)
         : font_(nullptr, nullptr)
     {
         font_ =
@@ -42,7 +42,7 @@ namespace mio
 
     image font::render(const std::string& text, mio::color color) const
     {
-        SDL_Color sdl_color
+        SDL_Color foreground
         {
             color.r,
             color.g,
@@ -52,7 +52,7 @@ namespace mio
 
         std::unique_ptr<SDL_Surface, void (*)(SDL_Surface*)> surface
         {
-            TTF_RenderText_Blended(font_.get(), text.c_str(), sdl_color),
+            TTF_RenderText_Blended(font_.get(), text.c_str(), foreground),
             SDL_FreeSurface
         };
 

@@ -13,7 +13,7 @@ namespace mio
     class font
     {
     public:
-        font(const std::string& filename, unsigned int size);
+        font(const std::string& filename, int size);
 
         font(const font&) = delete;
 

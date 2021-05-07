@@ -15,7 +15,7 @@ namespace mio
     class texture
     {
     public:
-        texture(const renderer& renderer, unsigned int width, unsigned int height, texture_access access);
+        texture(const renderer& renderer, int width, int height, texture_access access);
 
         texture(const renderer& renderer, const std::string& filename);
 
@@ -37,9 +37,9 @@ namespace mio
 
         void set_color(color color);
 
-        unsigned int width() const;
+        int width() const;
 
-        unsigned int height() const;
+        int height() const;
 
     private:
         std::unique_ptr<SDL_Texture, void (*)(SDL_Texture*)> texture_;

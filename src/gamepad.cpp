@@ -7,7 +7,7 @@
 
 namespace mio
 {
-    std::optional<gamepad> gamepad::from_index(unsigned int index)
+    std::optional<gamepad> gamepad::from_index(int index)
     {
         if (SDL_GameController* controller = SDL_GameControllerFromPlayerIndex(index))
         {
@@ -16,7 +16,7 @@ namespace mio
         return std::nullopt;
     }
 
-    std::optional<gamepad> gamepad::from_id(unsigned int id)
+    std::optional<gamepad> gamepad::from_id(int id)
     {
         if (SDL_GameController* controller = SDL_GameControllerFromInstanceID(id))
         {
@@ -39,7 +39,7 @@ namespace mio
         return controller_;
     }
 
-    unsigned int gamepad::id() const
+    int gamepad::id() const
     {
         SDL_Joystick* joystick = SDL_GameControllerGetJoystick(controller_);
         if (joystick == nullptr)

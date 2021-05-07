@@ -8,7 +8,7 @@
 
 namespace mio
 {
-    texture::texture(const renderer& renderer, unsigned int width, unsigned int height, texture_access access)
+    texture::texture(const renderer& renderer, int width, int height, texture_access access)
         : texture_(nullptr, nullptr)
     {
         texture_ =
@@ -94,14 +94,14 @@ namespace mio
         }
     }
 
-    unsigned int texture::width() const
+    int texture::width() const
     {
         int width = 0;
         SDL_QueryTexture(texture_.get(), nullptr, nullptr, &width, nullptr);
         return width;
     }
 
-    unsigned int texture::height() const
+    int texture::height() const
     {
         int height = 0;
         SDL_QueryTexture(texture_.get(), nullptr, nullptr, nullptr, &height);

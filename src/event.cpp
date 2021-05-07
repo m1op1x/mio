@@ -89,7 +89,7 @@ namespace mio
 
                     return gamepad_device_event
                     {
-                        static_cast<unsigned int>(instance_id),
+                        instance_id,
                         device_state::connected
                     };
                 }
@@ -105,7 +105,7 @@ namespace mio
 
                     return gamepad_device_event
                     {
-                        static_cast<unsigned int>(event.cdevice.which),
+                        event.cdevice.which,
                         device_state::disconnected
                     };
                 }
@@ -113,7 +113,7 @@ namespace mio
                 {
                     return gamepad_button_event
                     {
-                        static_cast<unsigned int>(event.cbutton.which),
+                        event.cbutton.which,
                         detail::convert_gamepad_button(static_cast<SDL_GameControllerButton>(event.cbutton.button)),
                         button_state::pressed
                     };
@@ -122,7 +122,7 @@ namespace mio
                 {
                     return gamepad_button_event
                     {
-                        static_cast<unsigned int>(event.cbutton.which),
+                        event.cbutton.which,
                         detail::convert_gamepad_button(static_cast<SDL_GameControllerButton>(event.cbutton.button)),
                         button_state::released
                     };
@@ -131,7 +131,7 @@ namespace mio
                 {
                     return gamepad_axis_event
                     {
-                        static_cast<unsigned int>(event.caxis.which),
+                        event.caxis.which,
                         detail::convert_gamepad_axis(static_cast<SDL_GameControllerAxis>(event.caxis.axis)),
                         detail::normalize_gamepad_axis(event.caxis.value)
                     };
@@ -145,8 +145,8 @@ namespace mio
                             return window_size_event
                             {
                                 event.window.windowID,
-                                static_cast<unsigned int>(event.window.data1),
-                                static_cast<unsigned int>(event.window.data2)
+                                event.window.data1,
+                                event.window.data2
                             };
                         }
                         case SDL_WINDOWEVENT_CLOSE:

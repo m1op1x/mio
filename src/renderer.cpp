@@ -94,9 +94,7 @@ namespace mio
             throw sdl_error();
         }
 
-        /**
-         * Midpoint circle drawing algorithm.
-         */
+        // Midpoint circle drawing algorithm.
 
         int decision = 1 - circle.radius;
         int offset_y = circle.radius;
@@ -141,9 +139,7 @@ namespace mio
             throw sdl_error();
         }
 
-        /**
-         * Midpoint circle drawing algorithm.
-         */
+        // Midpoint circle drawing algorithm.
 
         int decision = 1 - circle.radius;
         int offset_y = circle.radius;
@@ -179,7 +175,7 @@ namespace mio
 
     void renderer::draw_rectangle(rectangle<float> rectangle, color color)
     {
-        SDL_FRect sdl_rect
+        SDL_FRect dstrect
         {
             rectangle.x,
             rectangle.y,
@@ -192,7 +188,7 @@ namespace mio
             throw sdl_error();
         }
 
-        if (SDL_RenderDrawRectF(renderer_.get(), &sdl_rect))
+        if (SDL_RenderDrawRectF(renderer_.get(), &dstrect))
         {
             throw sdl_error();
         }
@@ -200,7 +196,7 @@ namespace mio
 
     void renderer::fill_rectangle(rectangle<float> rectangle, color color)
     {
-        SDL_FRect sdl_rect
+        SDL_FRect dstrect
         {
             rectangle.x,
             rectangle.y,
@@ -213,7 +209,7 @@ namespace mio
             throw sdl_error();
         }
 
-        if (SDL_RenderFillRectF(renderer_.get(), &sdl_rect))
+        if (SDL_RenderFillRectF(renderer_.get(), &dstrect))
         {
             throw sdl_error();
         }
@@ -221,7 +217,7 @@ namespace mio
 
     void renderer::draw_texture(const texture& texture, point<float> position)
     {
-        SDL_FRect sdl_dstrect
+        SDL_FRect dstrect
         {
             position.x,
             position.y,
@@ -229,7 +225,7 @@ namespace mio
             static_cast<float>(texture.height())
         };
 
-        if (SDL_RenderCopyF(renderer_.get(), texture.native_handle(), nullptr, &sdl_dstrect))
+        if (SDL_RenderCopyF(renderer_.get(), texture.native_handle(), nullptr, &dstrect))
         {
             throw sdl_error();
         }
@@ -237,21 +233,21 @@ namespace mio
 
     void renderer::draw_texture(const texture& texture, point<float> position, point<float> origin, point<float> scale, float rotation)
     {
-        SDL_RendererFlip sdl_flip = SDL_FLIP_NONE;
+        SDL_RendererFlip flip = SDL_FLIP_NONE;
 
         if (scale.x < 0)
         {
-            sdl_flip = static_cast<SDL_RendererFlip>(sdl_flip | SDL_FLIP_HORIZONTAL);
+            flip = static_cast<SDL_RendererFlip>(flip | SDL_FLIP_HORIZONTAL);
             scale.x *= -1;
         }
 
         if (scale.y < 0)
         {
-            sdl_flip = static_cast<SDL_RendererFlip>(sdl_flip | SDL_FLIP_VERTICAL);
+            flip = static_cast<SDL_RendererFlip>(flip | SDL_FLIP_VERTICAL);
             scale.y *= -1;
         }
 
-        SDL_FRect sdl_dstrect
+        SDL_FRect dstrect
         {
             position.x - scale.x * origin.x,
             position.y - scale.y * origin.y,
@@ -259,13 +255,13 @@ namespace mio
             scale.y * static_cast<float>(texture.height())
         };
 
-        SDL_FPoint sdl_center
+        SDL_FPoint center
         {
             scale.x * origin.x,
             scale.y * origin.y
         };
 
-        if (SDL_RenderCopyExF(renderer_.get(), texture.native_handle(), nullptr, &sdl_dstrect, rotation, &sdl_center, sdl_flip))
+        if (SDL_RenderCopyExF(renderer_.get(), texture.native_handle(), nullptr, &dstrect, rotation, &center, flip))
         {
             throw sdl_error();
         }
@@ -273,7 +269,7 @@ namespace mio
 
     void renderer::draw_texture(const texture& texture, rectangle<float> destination)
     {
-        SDL_FRect sdl_dstrect
+        SDL_FRect dstrect
         {
             destination.x,
             destination.y,
@@ -281,7 +277,7 @@ namespace mio
             destination.height
         };
 
-        if (SDL_RenderCopyF(renderer_.get(), texture.native_handle(), nullptr, &sdl_dstrect))
+        if (SDL_RenderCopyF(renderer_.get(), texture.native_handle(), nullptr, &dstrect))
         {
             throw sdl_error();
         }
@@ -289,7 +285,7 @@ namespace mio
 
     void renderer::draw_texture(const texture& texture, rectangle<int> source, point<float> position)
     {
-        SDL_Rect sdl_srcrect
+        SDL_Rect srcrect
         {
             source.x,
             source.y,
@@ -297,7 +293,7 @@ namespace mio
             source.height
         };
 
-        SDL_FRect sdl_dstrect
+        SDL_FRect dstrect
         {
             position.x,
             position.y,
@@ -305,7 +301,7 @@ namespace mio
             static_cast<float>(source.height)
         };
 
-        if (SDL_RenderCopyF(renderer_.get(), texture.native_handle(), &sdl_srcrect, &sdl_dstrect))
+        if (SDL_RenderCopyF(renderer_.get(), texture.native_handle(), &srcrect, &dstrect))
         {
             throw sdl_error();
         }
@@ -313,21 +309,21 @@ namespace mio
 
     void renderer::draw_texture(const texture& texture, rectangle<int> source, point<float> position, point<float> origin, point<float> scale, float rotation)
     {
-        SDL_RendererFlip sdl_flip = SDL_FLIP_NONE;
+        SDL_RendererFlip flip = SDL_FLIP_NONE;
 
         if (scale.x < 0)
         {
-            sdl_flip = static_cast<SDL_RendererFlip>(sdl_flip | SDL_FLIP_HORIZONTAL);
+            flip = static_cast<SDL_RendererFlip>(flip | SDL_FLIP_HORIZONTAL);
             scale.x *= -1;
         }
 
         if (scale.y < 0)
         {
-            sdl_flip = static_cast<SDL_RendererFlip>(sdl_flip | SDL_FLIP_VERTICAL);
+            flip = static_cast<SDL_RendererFlip>(flip | SDL_FLIP_VERTICAL);
             scale.y *= -1;
         }
 
-        SDL_Rect sdl_srcrect
+        SDL_Rect srcrect
         {
             source.x,
             source.y,
@@ -335,7 +331,7 @@ namespace mio
             source.height
         };
 
-        SDL_FRect sdl_dstrect
+        SDL_FRect dstrect
         {
             position.x - scale.x * origin.x,
             position.y - scale.y * origin.y,
@@ -343,13 +339,13 @@ namespace mio
             scale.y * static_cast<float>(source.height)
         };
 
-        SDL_FPoint sdl_center
+        SDL_FPoint center
         {
             scale.x * origin.x,
             scale.y * origin.y
         };
 
-        if (SDL_RenderCopyExF(renderer_.get(), texture.native_handle(), &sdl_srcrect, &sdl_dstrect, rotation, &sdl_center, sdl_flip))
+        if (SDL_RenderCopyExF(renderer_.get(), texture.native_handle(), &srcrect, &dstrect, rotation, &center, flip))
         {
             throw sdl_error();
         }
@@ -357,7 +353,7 @@ namespace mio
 
     void renderer::draw_texture(const texture& texture, rectangle<int> source, rectangle<float> destination)
     {
-        SDL_Rect sdl_srcrect
+        SDL_Rect srcrect
         {
             source.x,
             source.y,
@@ -365,7 +361,7 @@ namespace mio
             source.height
         };
 
-        SDL_FRect sdl_dstrect
+        SDL_FRect dstrect
         {
             destination.x,
             destination.y,
@@ -373,7 +369,7 @@ namespace mio
             destination.height
         };
 
-        if (SDL_RenderCopyF(renderer_.get(), texture.native_handle(), &sdl_srcrect, &sdl_dstrect))
+        if (SDL_RenderCopyF(renderer_.get(), texture.native_handle(), &srcrect, &dstrect))
         {
             throw sdl_error();
         }
