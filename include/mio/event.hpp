@@ -31,13 +31,17 @@ namespace mio
 
     private:
         using variant_type = std::variant<
-            keyboard_event,
-            mouse_button_event,
-            mouse_motion_event,
-            gamepad_device_event,
-            gamepad_button_event,
-            gamepad_axis_event,
-            window_size_event,
+            keyboard_press_event,
+            keyboard_release_event,
+            mouse_press_event,
+            mouse_release_event,
+            mouse_move_event,
+            gamepad_connect_event,
+            gamepad_disconnect_event,
+            gamepad_press_event,
+            gamepad_release_event,
+            gamepad_move_event,
+            window_resize_event,
             window_close_event,
             quit_event>;
 

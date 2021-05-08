@@ -1,7 +1,5 @@
 #pragma once
 
-#include <mio/button_state.hpp>
-#include <mio/device_state.hpp>
 #include <mio/gamepad_axis.hpp>
 #include <mio/gamepad_button.hpp>
 #include <mio/mouse_button.hpp>
@@ -9,21 +7,31 @@
 
 namespace mio
 {
-    struct keyboard_event
+    struct keyboard_press_event
     {
         scancode key;
-        button_state state;
     };
 
-    struct mouse_button_event
+    struct keyboard_release_event
+    {
+        scancode key;
+    };
+
+    struct mouse_press_event
     {
         mouse_button button;
-        button_state state;
         int x;
         int y;
     };
 
-    struct mouse_motion_event
+    struct mouse_release_event
+    {
+        mouse_button button;
+        int x;
+        int y;
+    };
+
+    struct mouse_move_event
     {
         int delta_x;
         int delta_y;
@@ -31,27 +39,36 @@ namespace mio
         int y;
     };
 
-    struct gamepad_device_event
+    struct gamepad_connect_event
     {
         int device_index;
-        device_state state;
     };
 
-    struct gamepad_button_event
+    struct gamepad_disconnect_event
+    {
+        int instance_id;
+    };
+
+    struct gamepad_press_event
     {
         int instance_id;
         gamepad_button button;
-        button_state state;
     };
 
-    struct gamepad_axis_event
+    struct gamepad_release_event
+    {
+        int instance_id;
+        gamepad_button button;
+    };
+
+    struct gamepad_move_event
     {
         int instance_id;
         gamepad_axis axis;
         float position;
     };
 
-    struct window_size_event
+    struct window_resize_event
     {
         unsigned int window_id;
         int width;

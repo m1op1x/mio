@@ -21,45 +21,41 @@ namespace mio
                 {
                     if (event.key.repeat == 0)
                     {
-                        return keyboard_event
+                        return keyboard_press_event
                         {
-                            detail::convert_scancode(event.key.keysym.scancode),
-                            button_state::pressed
+                            detail::convert_scancode(event.key.keysym.scancode)
                         };
                     }
                     break;
                 }
                 case SDL_KEYUP:
                 {
-                    return keyboard_event
+                    return keyboard_release_event
                     {
-                        detail::convert_scancode(event.key.keysym.scancode),
-                        button_state::released
+                        detail::convert_scancode(event.key.keysym.scancode)
                     };
                 }
                 case SDL_MOUSEBUTTONDOWN:
                 {
-                    return mouse_button_event
+                    return mouse_press_event
                     {
                         detail::convert_mouse_button(event.button.button),
-                        button_state::pressed,
                         event.button.x,
                         event.button.y
                     };
                 }
                 case SDL_MOUSEBUTTONUP:
                 {
-                    return mouse_button_event
+                    return mouse_release_event
                     {
                         detail::convert_mouse_button(event.button.button),
-                        button_state::released,
                         event.button.x,
                         event.button.y
                     };
                 }
                 case SDL_MOUSEMOTION:
                 {
-                    return mouse_motion_event
+                    return mouse_move_event
                     {
                         event.motion.xrel,
                         event.motion.yrel,
@@ -69,41 +65,37 @@ namespace mio
                 }
                 case SDL_CONTROLLERDEVICEADDED:
                 {
-                    return gamepad_device_event
+                    return gamepad_connect_event
                     {
-                        detail::to_gamepad_index(event.cdevice.which),
-                        device_state::connected
+                        detail::to_gamepad_index(event.cdevice.which)
                     };
                 }
                 case SDL_CONTROLLERDEVICEREMOVED:
                 {
-                    return gamepad_device_event
+                    return gamepad_disconnect_event
                     {
-                        event.cdevice.which,
-                        device_state::disconnected
+                        event.cdevice.which
                     };
                 }
                 case SDL_CONTROLLERBUTTONDOWN:
                 {
-                    return gamepad_button_event
+                    return gamepad_press_event
                     {
                         event.cbutton.which,
-                        detail::convert_gamepad_button(static_cast<SDL_GameControllerButton>(event.cbutton.button)),
-                        button_state::pressed
+                        detail::convert_gamepad_button(static_cast<SDL_GameControllerButton>(event.cbutton.button))
                     };
                 }
                 case SDL_CONTROLLERBUTTONUP:
                 {
-                    return gamepad_button_event
+                    return gamepad_release_event
                     {
                         event.cbutton.which,
-                        detail::convert_gamepad_button(static_cast<SDL_GameControllerButton>(event.cbutton.button)),
-                        button_state::released
+                        detail::convert_gamepad_button(static_cast<SDL_GameControllerButton>(event.cbutton.button))
                     };
                 }
                 case SDL_CONTROLLERAXISMOTION:
                 {
-                    return gamepad_axis_event
+                    return gamepad_move_event
                     {
                         event.caxis.which,
                         detail::convert_gamepad_axis(static_cast<SDL_GameControllerAxis>(event.caxis.axis)),
@@ -116,7 +108,7 @@ namespace mio
                     {
                         case SDL_WINDOWEVENT_RESIZED:
                         {
-                            return window_size_event
+                            return window_resize_event
                             {
                                 event.window.windowID,
                                 event.window.data1,
