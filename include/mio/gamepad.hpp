@@ -17,8 +17,6 @@ namespace mio
 
         gamepad(SDL_GameController* controller);
 
-        ~gamepad();
-
         SDL_GameController* native_handle() const;
 
         int instance_id() const;

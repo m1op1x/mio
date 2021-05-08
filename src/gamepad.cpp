@@ -37,10 +37,6 @@ namespace mio
         }
     }
 
-    gamepad::~gamepad()
-    {
-    }
-
     SDL_GameController* gamepad::native_handle() const
     {
         return controller_.get();
