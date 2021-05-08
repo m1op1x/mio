@@ -1,5 +1,7 @@
 #pragma once
 
+#include <mio/point.hpp>
+
 namespace mio
 {
     template <typename T>
