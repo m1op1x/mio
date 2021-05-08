@@ -1,10 +1,10 @@
 #include <mio/event.hpp>
 
-#include <mio/detail/gamepad_axis.hpp>
 #include <mio/detail/gamepad_button.hpp>
+#include <mio/detail/gamepad_axis.hpp>
+#include <mio/detail/gamepad.hpp>
 #include <mio/detail/mouse_button.hpp>
 #include <mio/detail/scancode.hpp>
-#include <mio/exception.hpp>
 #include <SDL_events.h>
 
 namespace mio
@@ -69,40 +69,14 @@ namespace mio
                 }
                 case SDL_CONTROLLERDEVICEADDED:
                 {
-                    SDL_GameController* controller = SDL_GameControllerOpen(event.cdevice.which);
-                    if (controller == nullptr)
-                    {
-                        throw sdl_error();
-                    }
-
-                    SDL_Joystick* joystick = SDL_GameControllerGetJoystick(controller);
-                    if (joystick == nullptr)
-                    {
-                        throw sdl_error();
-                    }
-
-                    SDL_JoystickID instance_id = SDL_JoystickInstanceID(joystick);
-                    if (instance_id < 0)
-                    {
-                        throw sdl_error();
-                    }
-
                     return gamepad_device_event
                     {
-                        instance_id,
+                        detail::to_gamepad_index(event.cdevice.which),
                         device_state::connected
                     };
                 }
                 case SDL_CONTROLLERDEVICEREMOVED:
                 {
-                    SDL_GameController* controller = SDL_GameControllerFromInstanceID(event.cdevice.which);
-                    if (controller == nullptr)
-                    {
-                        throw sdl_error();
-                    }
-
-                    SDL_GameControllerClose(controller);
-
                     return gamepad_device_event
                     {
                         event.cdevice.which,

@@ -33,20 +33,20 @@ namespace mio
 
     struct gamepad_device_event
     {
-        int gamepad_id;
+        int device_index;
         device_state state;
     };
 
     struct gamepad_button_event
     {
-        int gamepad_id;
+        int instance_id;
         gamepad_button button;
         button_state state;
     };
 
     struct gamepad_axis_event
     {
-        int gamepad_id;
+        int instance_id;
         gamepad_axis axis;
         float position;
     };

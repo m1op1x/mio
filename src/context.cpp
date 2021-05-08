@@ -15,17 +15,6 @@ namespace mio
             throw sdl_error();
         }
 
-        for (int i = 0; i < SDL_NumJoysticks(); i++)
-        {
-            if (SDL_IsGameController(i))
-            {
-                if (SDL_GameControllerOpen(i) == nullptr)
-                {
-                    throw sdl_error();
-                }
-            }
-        }
-
         if (int flags = IMG_INIT_JPG | IMG_INIT_PNG; (IMG_Init(flags) & flags) != flags)
         {
             throw img_error();

@@ -2,7 +2,7 @@
 
 #include <mio/gamepad_button.hpp>
 #include <mio/gamepad_axis.hpp>
-#include <optional>
+#include <memory>
 
 typedef struct _SDL_GameController SDL_GameController;
 
@@ -11,17 +11,17 @@ namespace mio
     class gamepad
     {
     public:
-        static std::optional<gamepad> from_index(int index);
+        static int device_count();
 
-        static std::optional<gamepad> from_id(int id);
+        gamepad(int device_index);
 
         gamepad(SDL_GameController* controller);
 
+        ~gamepad();
+
         SDL_GameController* native_handle() const;
 
-        std::optional<int> index() const;
-
-        int id() const;
+        int instance_id() const;
 
         bool is_connected() const;
 
@@ -30,6 +30,6 @@ namespace mio
         float position(gamepad_axis axis) const;
 
     private:
-        SDL_GameController* controller_;
+        std::shared_ptr<SDL_GameController> controller_;
     };
 }
