@@ -7,7 +7,7 @@ namespace mio
     }
 
     template <typename T>
-    bool event::holds() const
+    bool event::is() const
     {
         return std::holds_alternative<T>(data_);
     }

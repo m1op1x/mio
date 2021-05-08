@@ -15,7 +15,7 @@ namespace mio
         event(const T& data);
 
         template <typename T>
-        bool holds() const;
+        bool is() const;
 
         template <typename T>
         const T& get() const;
