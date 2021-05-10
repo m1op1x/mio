@@ -13,7 +13,7 @@ namespace mio
         float radians = to_radians(angle);
         float x = length * std::cos(radians);
         float y = length * std::sin(radians);
-        return point<float>(x, y);
+        return point(x, y);
     }
 
     float length_squared(point<float> vector)
@@ -44,7 +44,12 @@ namespace mio
 
     point<float> rotate(point<float> vector, float angle)
     {
-        throw exception("Not implemented");
+        float radians = to_radians(angle);
+        float cos = std::cos(radians);
+        float sin = std::sin(radians);
+        float x = vector.x * cos - vector.y * sin;
+        float y = vector.x * sin + vector.y * cos;
+        return point(x, y);
     }
 
     point<float> clamp(point<float> vector, float length)
