@@ -2,45 +2,22 @@
 # Set project name.
 ###############################################################################
 cmake_minimum_required(VERSION 3.9.0)
-project(mio)
+project(window)
 
 ###############################################################################
 # Set project variables.
 ###############################################################################
-set(EXAMPLE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/example)
-set(INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 set(SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 ###############################################################################
-# Find dependencies.
+# Create target executable.
 ###############################################################################
-find_package(SDL2 CONFIG REQUIRED)
-find_package(sdl2-image CONFIG REQUIRED)
-find_package(sdl2-ttf CONFIG REQUIRED)
-find_package(sdl2-mixer CONFIG REQUIRED)
-
-###############################################################################
-# Create target library.
-###############################################################################
-file(GLOB_RECURSE PRJ_SRC ${SRC_DIR}/*.cpp)
-add_library(${PROJECT_NAME} ${PRJ_SRC})
-
-###############################################################################
-# Set target include directories.
-###############################################################################
-target_include_directories(${PROJECT_NAME} PUBLIC ${INCLUDE_DIR})
+add_executable(${PROJECT_NAME} ${SRC_DIR}/main.cpp)
 
 ###############################################################################
 # Set target dependencies.
 ###############################################################################
-target_link_libraries(
-    ${PROJECT_NAME}
-    PRIVATE
-    SDL2::SDL2main
-    SDL2::SDL2-static
-    SDL2::SDL2_image
-    SDL2::SDL2_ttf
-    SDL2::SDL2_mixer)
+target_link_libraries(${PROJECT_NAME} PRIVATE mio)
 
 ###############################################################################
 # Set target C++ standard.
@@ -56,9 +33,3 @@ else()
     target_compile_options(${PROJECT_NAME} PRIVATE -Wall)
 endif()
 
-###############################################################################
-# Build example projects.
-###############################################################################
-if(${BUILD_EXAMPLES})
-    add_subdirectory(${EXAMPLE_DIR})
-endif()
