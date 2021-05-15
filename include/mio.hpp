@@ -14,13 +14,16 @@
 #include <mio/image.hpp>
 #include <mio/keyboard.hpp>
 #include <mio/math.hpp>
+#include <mio/mixer.hpp>
 #include <mio/mouse_button.hpp>
 #include <mio/mouse.hpp>
+#include <mio/music.hpp>
 #include <mio/point.hpp>
 #include <mio/random.hpp>
 #include <mio/rectangle.hpp>
 #include <mio/renderer.hpp>
 #include <mio/scancode.hpp>
+#include <mio/sound.hpp>
 #include <mio/texture_access.hpp>
 #include <mio/texture.hpp>
 #include <mio/window.hpp>
