@@ -2,6 +2,7 @@
 
 #include <mio/exception.hpp>
 #include <SDL_mixer.h>
+#include <algorithm>
 
 namespace mio::mixer
 {
@@ -59,5 +60,11 @@ namespace mio::mixer
     void stop_music()
     {
         Mix_HaltMusic();
+    }
+
+    void music_volume(float volume)
+    {
+        volume = std::clamp(volume, 0.0f, 1.0f) * MIX_MAX_VOLUME;
+        Mix_VolumeMusic(static_cast<int>(volume));
     }
 }

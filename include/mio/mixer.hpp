@@ -22,4 +22,6 @@ namespace mio::mixer
     void resume_music();
 
     void stop_music();
+
+    void music_volume(float volume);
 }
