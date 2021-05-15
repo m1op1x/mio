@@ -24,16 +24,10 @@ namespace mio
         {
             throw ttf_error();
         }
-
-        if (int flags = MIX_INIT_MP3; (Mix_Init(flags) & flags) != flags)
-        {
-            throw mix_error();
-        }
     }
 
     context::~context()
     {
-        Mix_Quit();
         TTF_Quit();
         IMG_Quit();
         SDL_Quit();
