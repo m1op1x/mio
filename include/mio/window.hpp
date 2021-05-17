@@ -34,6 +34,10 @@ namespace mio
 
         int height() const;
 
+        void show();
+
+        void hide();
+
     private:
         std::unique_ptr<SDL_Window, void (*)(SDL_Window*)> window_;
     };

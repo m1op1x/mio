@@ -61,4 +61,14 @@ namespace mio
         SDL_GetWindowSize(window_.get(), nullptr, &height);
         return height;
     }
+
+    void window::show()
+    {
+        SDL_ShowWindow(window_.get());
+    }
+
+    void window::hide()
+    {
+        SDL_HideWindow(window_.get());
+    }
 }
