@@ -6,7 +6,7 @@
 
 namespace mio::mixer
 {
-    void play_sound(const sound& sound, int channel)
+    void play_channel(const sound& sound, int channel)
     {
         if (Mix_PlayChannel(channel, sound.native_handle(), 0) == -1)
         {
@@ -14,7 +14,7 @@ namespace mio::mixer
         }
     }
 
-    int play_sound(const sound& sound)
+    int play_channel(const sound& sound)
     {
         int channel = Mix_PlayChannel(-1, sound.native_handle(), 0);
         if (channel == -1)
@@ -24,22 +24,22 @@ namespace mio::mixer
         return channel;
     }
 
-    void pause_sound(int channel)
+    void pause_channel(int channel)
     {
         Mix_Pause(channel);
     }
 
-    void resume_sound(int channel)
+    void resume_channel(int channel)
     {
         Mix_Resume(channel);
     }
 
-    void stop_sound(int channel)
+    void stop_channel(int channel)
     {
         Mix_HaltChannel(channel);
     }
 
-    void play_music(const music& music)
+    void play_stream(const music& music)
     {
         if (Mix_PlayMusic(music.native_handle(), 1))
         {
@@ -47,22 +47,22 @@ namespace mio::mixer
         }
     }
 
-    void pause_music()
+    void pause_stream()
     {
         Mix_PauseMusic();
     }
 
-    void resume_music()
+    void resume_stream()
     {
         Mix_ResumeMusic();
     }
 
-    void stop_music()
+    void stop_stream()
     {
         Mix_HaltMusic();
     }
 
-    void music_volume(float volume)
+    void stream_volume(float volume)
     {
         volume = std::clamp(volume, 0.0f, 1.0f) * MIX_MAX_VOLUME;
         Mix_VolumeMusic(static_cast<int>(volume));

@@ -5,23 +5,23 @@
 
 namespace mio::mixer
 {
-    void play_sound(const sound& sound, int channel);
+    void play_channel(const sound& sound, int channel);
 
-    int play_sound(const sound& sound);
+    int play_channel(const sound& sound);
 
-    void pause_sound(int channel);
+    void pause_channel(int channel);
 
-    void resume_sound(int channel);
+    void resume_channel(int channel);
 
-    void stop_sound(int channel);
+    void stop_channel(int channel);
 
-    void play_music(const music& music);
+    void play_stream(const music& music);
 
-    void pause_music();
+    void pause_stream();
 
-    void resume_music();
+    void resume_stream();
 
-    void stop_music();
+    void stop_stream();
 
-    void music_volume(float volume);
+    void stream_volume(float volume);
 }
