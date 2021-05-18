@@ -15,6 +15,10 @@ namespace mio::mixer
 
     void stop_channel(int channel);
 
+    void channel_volume(int channel, float volume);
+
+    float channel_volume(int channel);
+
     void play_stream(const music& music);
 
     void pause_stream();
@@ -24,4 +28,6 @@ namespace mio::mixer
     void stop_stream();
 
     void stream_volume(float volume);
+
+    float stream_volume();
 }
