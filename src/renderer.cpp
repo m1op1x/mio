@@ -260,9 +260,7 @@ namespace mio
             scale.y * origin.y
         };
 
-        double angle = -1.0f * rotation;
-
-        if (SDL_RenderCopyExF(renderer_.get(), texture.native_handle(), nullptr, &dstrect, angle, &center, flip))
+        if (SDL_RenderCopyExF(renderer_.get(), texture.native_handle(), nullptr, &dstrect, rotation, &center, flip))
         {
             throw sdl_error();
         }
@@ -346,9 +344,7 @@ namespace mio
             scale.y * origin.y
         };
 
-        double angle = -1.0f * rotation;
-
-        if (SDL_RenderCopyExF(renderer_.get(), texture.native_handle(), &srcrect, &dstrect, angle, &center, flip))
+        if (SDL_RenderCopyExF(renderer_.get(), texture.native_handle(), &srcrect, &dstrect, rotation, &center, flip))
         {
             throw sdl_error();
         }
