@@ -47,6 +47,28 @@ namespace mio
         }
     }
 
+    void renderer::logical_size(int width, int height)
+    {
+        if (SDL_RenderSetLogicalSize(renderer_.get(), width, height))
+        {
+            throw sdl_error();
+        }
+    }
+
+    int renderer::logical_width() const
+    {
+        int width;
+        SDL_RenderGetLogicalSize(renderer_.get(), &width, nullptr);
+        return width;
+    }
+
+    int renderer::logical_height() const
+    {
+        int height;
+        SDL_RenderGetLogicalSize(renderer_.get(), nullptr, &height);
+        return height;
+    }
+
     void renderer::clear(color color)
     {
         if (SDL_SetRenderDrawColor(renderer_.get(), color.r, color.g, color.b, color.a))
