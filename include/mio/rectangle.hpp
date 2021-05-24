@@ -12,6 +12,8 @@ namespace mio
 
         rectangle(T x, T y, T width, T height);
 
+        rectangle(point<T> position, point<T> size);
+
         template <typename U>
         explicit rectangle(rectangle<U> other);
 

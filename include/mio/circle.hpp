@@ -12,6 +12,8 @@ namespace mio
 
         circle(T x, T y, T radius);
 
+        circle(point<T> position, T radius);
+
         template <typename U>
         explicit circle(circle<U> other);
 

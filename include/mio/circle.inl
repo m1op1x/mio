@@ -17,6 +17,14 @@ namespace mio
     }
 
     template <typename T>
+    circle<T>::circle(point<T> position, T radius)
+        : x(position.x)
+        , y(position.y)
+        , radius(radius)
+    {
+    }
+
+    template <typename T>
     template <typename U>
     circle<T>::circle(circle<U> other)
         : x(static_cast<T>(other.x))
@@ -35,7 +43,7 @@ namespace mio
     template <typename T>
     point<T> circle<T>::position() const
     {
-        return point<T>(x, y);
+        return point(x, y);
     }
 
     template <typename T>

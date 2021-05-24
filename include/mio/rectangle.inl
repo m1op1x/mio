@@ -19,6 +19,15 @@ namespace mio
     }
 
     template <typename T>
+    rectangle<T>::rectangle(point<T> position, point<T> size)
+        : x(position.x)
+        , y(position.y)
+        , width(size.x)
+        , height(size.y)
+    {
+    }
+
+    template <typename T>
     template <typename U>
     rectangle<T>::rectangle(rectangle<U> other)
         : x(static_cast<T>(other.x))
@@ -38,7 +47,7 @@ namespace mio
     template <typename T>
     point<T> rectangle<T>::position() const
     {
-        return point<T>(x, y);
+        return point(x, y);
     }
 
     template <typename T>
@@ -51,7 +60,7 @@ namespace mio
     template <typename T>
     point<T> rectangle<T>::center() const
     {
-        return point<T>(x + width / 2, y + height / 2);
+        return point(x + width / 2, y + height / 2);
     }
 
     template <typename T>
@@ -112,7 +121,7 @@ namespace mio
     template <typename T>
     point<T> rectangle<T>::size() const
     {
-        return point<T>(width, height);
+        return point(width, height);
     }
 
     template <typename T>
