@@ -34,11 +34,9 @@ namespace mio
 
         void target(texture* target);
 
-        void logical_size(int width, int height);
+        void logical_size(point<int> size);
 
-        int logical_width() const;
-
-        int logical_height() const;
+        point<int> logical_size() const;
 
         void clear(color color);
 

@@ -47,26 +47,19 @@ namespace mio
         }
     }
 
-    void renderer::logical_size(int width, int height)
+    void renderer::logical_size(point<int> size)
     {
-        if (SDL_RenderSetLogicalSize(renderer_.get(), width, height))
+        if (SDL_RenderSetLogicalSize(renderer_.get(), size.x, size.y))
         {
             throw sdl_error();
         }
     }
 
-    int renderer::logical_width() const
+    point<int> renderer::logical_size() const
     {
-        int width;
-        SDL_RenderGetLogicalSize(renderer_.get(), &width, nullptr);
-        return width;
-    }
-
-    int renderer::logical_height() const
-    {
-        int height;
-        SDL_RenderGetLogicalSize(renderer_.get(), nullptr, &height);
-        return height;
+        point<int> size;
+        SDL_RenderGetLogicalSize(renderer_.get(), &size.x, &size.y);
+        return size;
     }
 
     void renderer::clear(color color)
@@ -238,12 +231,14 @@ namespace mio
 
     void renderer::draw_texture(const texture& texture, point<float> position)
     {
+        auto [width, height] = texture.size();
+
         SDL_FRect dstrect
         {
             position.x,
             position.y,
-            static_cast<float>(texture.width()),
-            static_cast<float>(texture.height())
+            static_cast<float>(width),
+            static_cast<float>(height)
         };
 
         if (SDL_RenderCopyF(renderer_.get(), texture.native_handle(), nullptr, &dstrect))
@@ -268,12 +263,14 @@ namespace mio
             scale.y *= -1;
         }
 
+        auto [width, height] = texture.size();
+
         SDL_FRect dstrect
         {
             position.x - scale.x * origin.x,
             position.y - scale.y * origin.y,
-            scale.x * static_cast<float>(texture.width()),
-            scale.y * static_cast<float>(texture.height())
+            scale.x * static_cast<float>(width),
+            scale.y * static_cast<float>(height)
         };
 
         SDL_FPoint center

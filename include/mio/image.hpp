@@ -1,5 +1,6 @@
 #pragma once
 
+#include <mio/point.hpp>
 #include <mio/color.hpp>
 #include <string>
 #include <memory>
@@ -29,9 +30,7 @@ namespace mio
 
         SDL_Surface* native_handle() const;
 
-        int width() const;
-
-        int height() const;
+        mio::point<int> size() const;
 
     private:
         std::unique_ptr<SDL_Surface, void (*)(SDL_Surface*)> surface_;

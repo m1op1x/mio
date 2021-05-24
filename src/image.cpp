@@ -63,13 +63,8 @@ namespace mio
         return surface_.get();
     }
 
-    int image::width() const
+    mio::point<int> image::size() const
     {
-        return surface_->w;
-    }
-
-    int image::height() const
-    {
-        return surface_->h;
+        return point(surface_->w, surface_->h);
     }
 }

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <mio/point.hpp>
 #include <string>
 #include <memory>
 
@@ -28,11 +29,9 @@ namespace mio
 
         unsigned int id() const;
 
-        void resize(int width, int height);
+        void size(point<int> size);
 
-        int width() const;
-
-        int height() const;
+        point<int> size() const;
 
         void show();
 

@@ -2,6 +2,7 @@
 
 #include <mio/texture_access.hpp>
 #include <mio/image.hpp>
+#include <mio/point.hpp>
 #include <mio/color.hpp>
 #include <string>
 #include <memory>
@@ -37,9 +38,7 @@ namespace mio
 
         void set_color(color color);
 
-        int width() const;
-
-        int height() const;
+        point<int> size() const;
 
     private:
         std::unique_ptr<SDL_Texture, void (*)(SDL_Texture*)> texture_;

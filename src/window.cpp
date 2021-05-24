@@ -43,23 +43,16 @@ namespace mio
         return SDL_GetWindowID(window_.get());
     }
 
-    void window::resize(int width, int height)
+    void window::size(point<int> size)
     {
-        SDL_SetWindowSize(window_.get(), width, height);
+        SDL_SetWindowSize(window_.get(), size.x, size.y);
     }
 
-    int window::width() const
+    point<int> window::size() const
     {
-        int width;
-        SDL_GetWindowSize(window_.get(), &width, nullptr);
-        return width;
-    }
-
-    int window::height() const
-    {
-        int height;
-        SDL_GetWindowSize(window_.get(), nullptr, &height);
-        return height;
+        point<int> size;
+        SDL_GetWindowSize(window_.get(), &size.x, &size.y);
+        return size;
     }
 
     void window::show()

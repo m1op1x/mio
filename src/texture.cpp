@@ -94,17 +94,10 @@ namespace mio
         }
     }
 
-    int texture::width() const
+    point<int> texture::size() const
     {
-        int width = 0;
-        SDL_QueryTexture(texture_.get(), nullptr, nullptr, &width, nullptr);
-        return width;
-    }
-
-    int texture::height() const
-    {
-        int height = 0;
-        SDL_QueryTexture(texture_.get(), nullptr, nullptr, nullptr, &height);
-        return height;
+        point<int> size;
+        SDL_QueryTexture(texture_.get(), nullptr, nullptr, &size.x, &size.y);
+        return size;
     }
 }
