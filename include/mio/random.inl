@@ -11,12 +11,12 @@ namespace mio
     {
         if constexpr (std::is_floating_point_v<T>)
         {
-            std::uniform_real_distribution<T> dist(min, max);
+            std::uniform_real_distribution dist(min, max);
             return dist(engine_);
         }
         else
         {
-            std::uniform_int_distribution<T> dist(min, max);
+            std::uniform_int_distribution dist(min, max);
             return dist(engine_);
         }
     }
