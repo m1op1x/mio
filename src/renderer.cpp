@@ -39,14 +39,6 @@ namespace mio
         return renderer_.get();
     }
 
-    void renderer::target(texture* target)
-    {
-        if (SDL_SetRenderTarget(renderer_.get(), (target) ? target->native_handle() : nullptr))
-        {
-            throw sdl_error();
-        }
-    }
-
     void renderer::logical_size(point<int> size)
     {
         if (SDL_RenderSetLogicalSize(renderer_.get(), size.x, size.y))
@@ -60,6 +52,44 @@ namespace mio
         point<int> size;
         SDL_RenderGetLogicalSize(renderer_.get(), &size.x, &size.y);
         return size;
+    }
+
+     void renderer::viewport(rectangle<int> viewport)
+    {
+        SDL_Rect rect
+        {
+            viewport.x,
+            viewport.y,
+            viewport.width,
+            viewport.height
+        };
+
+        if (SDL_RenderSetViewport(renderer_.get(), &rect))
+        {
+            throw sdl_error();
+        }
+    }
+
+    rectangle<int> renderer::viewport() const
+    {
+        SDL_Rect rect;
+        SDL_RenderGetViewport(renderer_.get(), &rect);
+
+        return rectangle
+        {
+            rect.x,
+            rect.y,
+            rect.w,
+            rect.h
+        };
+    }
+
+    void renderer::target(texture* target)
+    {
+        if (SDL_SetRenderTarget(renderer_.get(), (target) ? target->native_handle() : nullptr))
+        {
+            throw sdl_error();
+        }
     }
 
     void renderer::clear(color color)

@@ -32,11 +32,15 @@ namespace mio
 
         SDL_Renderer* native_handle() const;
 
-        void target(texture* target);
-
         void logical_size(point<int> size);
 
         point<int> logical_size() const;
+
+        void viewport(rectangle<int> viewport);
+
+        rectangle<int> viewport() const;
+
+        void target(texture* target);
 
         void clear(color color);
 
