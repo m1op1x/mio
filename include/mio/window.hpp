@@ -33,6 +33,10 @@ namespace mio
 
         bool visible() const;
 
+        void fullscreen(bool enable);
+
+        bool fullscreen() const;
+
         void size(point<int> size);
 
         point<int> size() const;

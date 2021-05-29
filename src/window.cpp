@@ -60,6 +60,19 @@ namespace mio
         }
     }
 
+    bool window::fullscreen() const
+    {
+        return SDL_GetWindowFlags(window_.get()) & SDL_WINDOW_FULLSCREEN;
+    }
+
+    void window::fullscreen(bool enable)
+    {
+        if (SDL_SetWindowFullscreen(window_.get(), (enable) ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0))
+        {
+            throw sdl_error();
+        }
+    }
+
     void window::size(point<int> size)
     {
         SDL_SetWindowSize(window_.get(), size.x, size.y);
