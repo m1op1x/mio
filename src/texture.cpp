@@ -26,7 +26,7 @@ namespace mio
     texture::texture(const renderer& renderer, const std::string& filename)
         : texture_(nullptr, nullptr)
     {
-        std::unique_ptr<SDL_Surface, void (*)(SDL_Surface*)> surface
+        auto surface = std::unique_ptr<SDL_Surface, void (*)(SDL_Surface*)>
         {
             IMG_Load(filename.c_str()),
             SDL_FreeSurface
@@ -88,6 +88,7 @@ namespace mio
         {
             throw sdl_error();
         }
+
         if (SDL_SetTextureAlphaMod(texture_.get(), color.a))
         {
             throw sdl_error();
