@@ -6,6 +6,10 @@ namespace mio
     class point
     {
     public:
+        static const point<T> unit_x;
+        static const point<T> unit_y;
+        static const point<T> zero;
+
         point();
 
         point(T x, T y);

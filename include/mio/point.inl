@@ -1,6 +1,15 @@
 namespace mio
 {
     template <typename T>
+    const point<T> point<T>::unit_x(1, 0);
+
+    template <typename T>
+    const point<T> point<T>::unit_y(0, 1);
+
+    template <typename T>
+    const point<T> point<T>::zero(0, 0);
+
+    template <typename T>
     point<T>::point()
         : x(0)
         , y(0)
