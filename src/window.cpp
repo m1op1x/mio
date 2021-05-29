@@ -43,6 +43,23 @@ namespace mio
         return SDL_GetWindowID(window_.get());
     }
 
+    bool window::visible() const
+    {
+        return SDL_GetWindowFlags(window_.get()) & SDL_WINDOW_SHOWN;
+    }
+
+    void window::visible(bool enable)
+    {
+        if (enable)
+        {
+            SDL_ShowWindow(window_.get());
+        }
+        else
+        {
+            SDL_HideWindow(window_.get());
+        }
+    }
+
     void window::size(point<int> size)
     {
         SDL_SetWindowSize(window_.get(), size.x, size.y);
@@ -53,15 +70,5 @@ namespace mio
         point<int> size;
         SDL_GetWindowSize(window_.get(), &size.x, &size.y);
         return size;
-    }
-
-    void window::show()
-    {
-        SDL_ShowWindow(window_.get());
-    }
-
-    void window::hide()
-    {
-        SDL_HideWindow(window_.get());
     }
 }

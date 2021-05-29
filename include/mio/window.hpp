@@ -29,13 +29,13 @@ namespace mio
 
         unsigned int id() const;
 
+        void visible(bool enable);
+
+        bool visible() const;
+
         void size(point<int> size);
 
         point<int> size() const;
-
-        void show();
-
-        void hide();
 
     private:
         std::unique_ptr<SDL_Window, void (*)(SDL_Window*)> window_;
