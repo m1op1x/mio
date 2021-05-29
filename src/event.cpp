@@ -106,7 +106,7 @@ namespace mio
                 {
                     switch (event.window.event)
                     {
-                        case SDL_WINDOWEVENT_RESIZED:
+                        case SDL_WINDOWEVENT_SIZE_CHANGED:
                         {
                             return window_resize_event
                             {
