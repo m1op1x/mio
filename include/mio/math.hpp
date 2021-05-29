@@ -18,8 +18,6 @@ namespace mio
 
     point<float> rotate(point<float> vector, float angle);
 
-    point<float> clamp(point<float> vector, float length);
-
     float cross(point<float> a, point<float> b);
 
     float dot(point<float> a, point<float> b);

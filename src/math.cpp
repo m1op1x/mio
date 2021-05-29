@@ -1,6 +1,5 @@
 #include <mio/math.hpp>
 
-#include <mio/exception.hpp>
 #include <numbers>
 #include <cmath>
 
@@ -50,11 +49,6 @@ namespace mio
         float x = vector.x * cos - vector.y * sin;
         float y = vector.x * sin + vector.y * cos;
         return point(x, y);
-    }
-
-    point<float> clamp(point<float> vector, float length)
-    {
-        throw exception("Not implemented");
     }
 
     float cross(point<float> a, point<float> b)
