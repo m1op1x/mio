@@ -33,7 +33,7 @@ namespace mio
     rectangle<int> font::measure(const std::string& text) const
     {
         rectangle<int> bounds;
-        if (TTF_SizeText(font_.get(), text.c_str(), &bounds.width, & bounds.height))
+        if (TTF_SizeText(font_.get(), text.c_str(), &bounds.width, &bounds.height))
         {
             throw ttf_error();
         }
@@ -50,7 +50,7 @@ namespace mio
             color.a
         };
 
-        std::unique_ptr<SDL_Surface, void (*)(SDL_Surface*)> surface
+        auto surface = std::unique_ptr<SDL_Surface, void (*)(SDL_Surface*)>
         {
             TTF_RenderText_Blended(font_.get(), text.c_str(), foreground),
             SDL_FreeSurface
