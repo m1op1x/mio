@@ -299,8 +299,8 @@ namespace mio
         {
             position.x - scale.x * origin.x,
             position.y - scale.y * origin.y,
-            scale.x * static_cast<float>(width),
-            scale.y * static_cast<float>(height)
+            scale.x * width,
+            scale.y * height
         };
 
         SDL_FPoint center
@@ -383,8 +383,8 @@ namespace mio
         {
             position.x - scale.x * origin.x,
             position.y - scale.y * origin.y,
-            scale.x * static_cast<float>(source.width),
-            scale.y * static_cast<float>(source.height)
+            scale.x * source.width,
+            scale.y * source.height
         };
 
         SDL_FPoint center
