@@ -4,9 +4,9 @@ int main()
 {
     mio::context context;
 
-    mio::window window { "title", 1280, 720 };
+    mio::window window("title", 1280, 720);
 
-    mio::renderer renderer { window };
+    mio::renderer renderer(window);
 
     bool is_running = true;
 
