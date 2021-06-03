@@ -9,13 +9,17 @@ namespace mio
 
     clock& clock::operator+=(float duration)
     {
-        start_ -= std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::duration<float>(duration));
+        start_ -= std::chrono::duration_cast<std::chrono::nanoseconds>(
+            std::chrono::duration<float>(duration));
+
         return *this;
     }
 
     clock& clock::operator-=(float duration)
     {
-        start_ += std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::duration<float>(duration));
+        start_ += std::chrono::duration_cast<std::chrono::nanoseconds>(
+            std::chrono::duration<float>(duration));
+
         return *this;
     }
 
