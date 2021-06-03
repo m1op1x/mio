@@ -1,7 +1,7 @@
 #pragma once
 
-#include <mio/rectangle.hpp>
 #include <mio/image.hpp>
+#include <mio/point.hpp>
 #include <mio/color.hpp>
 #include <string>
 #include <memory>
@@ -27,7 +27,7 @@ namespace mio
 
         TTF_Font* native_handle() const;
 
-        rectangle<int> measure(const std::string& text) const;
+        point<int> measure(const std::string& text) const;
 
         image render(const std::string& text, mio::color color) const;
 

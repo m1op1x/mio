@@ -30,14 +30,14 @@ namespace mio
         return font_.get();
     }
 
-    rectangle<int> font::measure(const std::string& text) const
+    point<int> font::measure(const std::string& text) const
     {
-        rectangle<int> bounds;
-        if (TTF_SizeText(font_.get(), text.c_str(), &bounds.width, &bounds.height))
+        point<int> size;
+        if (TTF_SizeText(font_.get(), text.c_str(), &size.x, &size.y))
         {
             throw ttf_error();
         }
-        return bounds;
+        return size;
     }
 
     image font::render(const std::string& text, mio::color color) const
