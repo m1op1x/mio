@@ -50,17 +50,12 @@ namespace mio
             color.a
         };
 
-        auto surface = std::unique_ptr<SDL_Surface, void (*)(SDL_Surface*)>
-        {
-            TTF_RenderText_Blended(font_.get(), text.c_str(), foreground),
-            SDL_FreeSurface
-        };
-
+        SDL_Surface* surface = TTF_RenderText_Blended(font_.get(), text.c_str(), foreground);
         if (surface == nullptr)
         {
             throw ttf_error();
         }
 
-        return image(surface.release());
+        return image(surface);
     }
 }
