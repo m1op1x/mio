@@ -21,6 +21,15 @@ namespace mio
         }
     }
 
+    font::font(TTF_Font* font)
+        : font_(font, TTF_CloseFont)
+    {
+        if (font_ == nullptr)
+        {
+            throw exception("Invalid font");
+        }
+    }
+
     font::~font()
     {
     }

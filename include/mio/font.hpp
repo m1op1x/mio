@@ -15,6 +15,8 @@ namespace mio
     public:
         font(const std::string& filename, int size);
 
+        font(TTF_Font* font);
+
         font(const font&) = delete;
 
         font(font&&) = default;
