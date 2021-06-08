@@ -15,7 +15,7 @@ namespace mio
     public:
         font(const std::string& filename, int size);
 
-        font(TTF_Font* font);
+        font(TTF_Font* handle);
 
         font(const font&) = delete;
 
@@ -34,6 +34,6 @@ namespace mio
         image render(const std::string& text, mio::color color) const;
 
     private:
-        std::unique_ptr<TTF_Font, void (*)(TTF_Font*)> font_;
+        std::unique_ptr<TTF_Font, void (*)(TTF_Font*)> handle_;
     };
 }

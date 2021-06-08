@@ -16,7 +16,7 @@ namespace mio
 
         image(const std::string& filename);
 
-        image(SDL_Surface* surface);
+        image(SDL_Surface* handle);
 
         image(const image&) = delete;
 
@@ -33,6 +33,6 @@ namespace mio
         mio::point<int> size() const;
 
     private:
-        std::unique_ptr<SDL_Surface, void (*)(SDL_Surface*)> surface_;
+        std::unique_ptr<SDL_Surface, void (*)(SDL_Surface*)> handle_;
     };
 }

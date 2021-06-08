@@ -12,7 +12,7 @@ namespace mio
     public:
         sound(const std::string& filename);
 
-        sound(Mix_Chunk* chunk);
+        sound(Mix_Chunk* handle);
 
         sound(const sound&) = delete;
 
@@ -27,6 +27,6 @@ namespace mio
         Mix_Chunk* native_handle() const;
 
     private:
-        std::unique_ptr<Mix_Chunk, void (*)(Mix_Chunk*)> chunk_;
+        std::unique_ptr<Mix_Chunk, void (*)(Mix_Chunk*)> handle_;
     };
 }

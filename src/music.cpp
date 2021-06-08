@@ -6,24 +6,24 @@
 namespace mio
 {
     music::music(const std::string& filename)
-        : music_(nullptr, nullptr)
+        : handle_(nullptr, nullptr)
     {
-        music_ =
+        handle_ =
         {
             Mix_LoadMUS(filename.c_str()),
             Mix_FreeMusic
         };
 
-        if (music_ == nullptr)
+        if (handle_ == nullptr)
         {
             throw mix_error();
         }
     }
 
-    music::music(Mix_Music* music)
-        : music_(music, Mix_FreeMusic)
+    music::music(Mix_Music* handle)
+        : handle_(handle, Mix_FreeMusic)
     {
-        if (music_ == nullptr)
+        if (handle_ == nullptr)
         {
             throw exception("Invalid music");
         }
@@ -35,6 +35,6 @@ namespace mio
 
     Mix_Music* music::native_handle() const
     {
-        return music_.get();
+        return handle_.get();
     }
 }

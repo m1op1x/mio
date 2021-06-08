@@ -12,7 +12,7 @@ namespace mio
     public:
         music(const std::string& filename);
 
-        music(Mix_Music* music);
+        music(Mix_Music* handle);
 
         music(const music&) = delete;
 
@@ -27,6 +27,6 @@ namespace mio
         Mix_Music* native_handle() const;
 
     private:
-        std::unique_ptr<Mix_Music, void (*)(Mix_Music*)> music_;
+        std::unique_ptr<Mix_Music, void (*)(Mix_Music*)> handle_;
     };
 }

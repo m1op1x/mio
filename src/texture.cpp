@@ -9,22 +9,22 @@
 namespace mio
 {
     texture::texture(const renderer& renderer, int width, int height, texture_access access)
-        : texture_(nullptr, nullptr)
+        : handle_(nullptr, nullptr)
     {
-        texture_ =
+        handle_ =
         {
             SDL_CreateTexture(renderer.native_handle(), SDL_PIXELFORMAT_RGBA32, detail::convert_texture_access(access), width, height),
             SDL_DestroyTexture
         };
 
-        if (texture_ == nullptr)
+        if (handle_ == nullptr)
         {
             throw sdl_error();
         }
     }
 
     texture::texture(const renderer& renderer, const std::string& filename)
-        : texture_(nullptr, nullptr)
+        : handle_(nullptr, nullptr)
     {
         std::unique_ptr<SDL_Surface, void (*)(SDL_Surface*)> surface
         {
@@ -37,37 +37,37 @@ namespace mio
             throw img_error();
         }
 
-        texture_ =
+        handle_ =
         {
             SDL_CreateTextureFromSurface(renderer.native_handle(), surface.get()),
             SDL_DestroyTexture
         };
 
-        if (texture_ == nullptr)
+        if (handle_ == nullptr)
         {
             throw sdl_error();
         }
     }
 
     texture::texture(const renderer& renderer, const image& image)
-        : texture_(nullptr, nullptr)
+        : handle_(nullptr, nullptr)
     {
-        texture_ =
+        handle_ =
         {
             SDL_CreateTextureFromSurface(renderer.native_handle(), image.native_handle()),
             SDL_DestroyTexture
         };
 
-        if (texture_ == nullptr)
+        if (handle_ == nullptr)
         {
             throw sdl_error();
         }
     }
 
-    texture::texture(SDL_Texture* texture)
-        : texture_(texture, SDL_DestroyTexture)
+    texture::texture(SDL_Texture* handle)
+        : handle_(handle, SDL_DestroyTexture)
     {
-        if (texture_ == nullptr)
+        if (handle_ == nullptr)
         {
             throw exception("Invalid texture");
         }
@@ -79,17 +79,17 @@ namespace mio
 
     SDL_Texture* texture::native_handle() const
     {
-        return texture_.get();
+        return handle_.get();
     }
 
     void texture::set_color(color color)
     {
-        if (SDL_SetTextureColorMod(texture_.get(), color.r, color.g, color.b))
+        if (SDL_SetTextureColorMod(handle_.get(), color.r, color.g, color.b))
         {
             throw sdl_error();
         }
 
-        if (SDL_SetTextureAlphaMod(texture_.get(), color.a))
+        if (SDL_SetTextureAlphaMod(handle_.get(), color.a))
         {
             throw sdl_error();
         }
@@ -98,7 +98,7 @@ namespace mio
     point<int> texture::size() const
     {
         point<int> size;
-        SDL_QueryTexture(texture_.get(), nullptr, nullptr, &size.x, &size.y);
+        SDL_QueryTexture(handle_.get(), nullptr, nullptr, &size.x, &size.y);
         return size;
     }
 }

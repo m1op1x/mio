@@ -13,7 +13,7 @@ namespace mio
     public:
         window(const std::string& title, int width, int height);
 
-        window(SDL_Window* window);
+        window(SDL_Window* handle);
 
         window(const window&) = delete;
 
@@ -42,6 +42,6 @@ namespace mio
         point<int> size() const;
 
     private:
-        std::unique_ptr<SDL_Window, void (*)(SDL_Window*)> window_;
+        std::unique_ptr<SDL_Window, void (*)(SDL_Window*)> handle_;
     };
 }

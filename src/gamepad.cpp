@@ -14,24 +14,24 @@ namespace mio
     }
 
     gamepad::gamepad(int device_index)
-        : controller_(nullptr)
+        : handle_(nullptr)
     {
-        controller_ =
+        handle_ =
         {
             SDL_GameControllerOpen(detail::to_joystick_index(device_index)),
             SDL_GameControllerClose
         };
 
-        if (controller_ == nullptr)
+        if (handle_ == nullptr)
         {
             throw sdl_error();
         }
     }
 
-    gamepad::gamepad(SDL_GameController* controller)
-        : controller_(controller, SDL_GameControllerClose)
+    gamepad::gamepad(SDL_GameController* handle)
+        : handle_(handle, SDL_GameControllerClose)
     {
-        if (controller_ == nullptr)
+        if (handle_ == nullptr)
         {
             throw exception("Invalid game controller");
         }
@@ -39,12 +39,12 @@ namespace mio
 
     SDL_GameController* gamepad::native_handle() const
     {
-        return controller_.get();
+        return handle_.get();
     }
 
     int gamepad::instance_id() const
     {
-        SDL_Joystick* joystick = SDL_GameControllerGetJoystick(controller_.get());
+        SDL_Joystick* joystick = SDL_GameControllerGetJoystick(handle_.get());
         if (joystick == nullptr)
         {
             throw sdl_error();
@@ -61,18 +61,18 @@ namespace mio
 
     bool gamepad::is_connected() const
     {
-        return SDL_GameControllerGetAttached(controller_.get());
+        return SDL_GameControllerGetAttached(handle_.get());
     }
 
     bool gamepad::is_pressed(gamepad_button button) const
     {
-        Uint8 state = SDL_GameControllerGetButton(controller_.get(), detail::convert_gamepad_button(button));
+        Uint8 state = SDL_GameControllerGetButton(handle_.get(), detail::convert_gamepad_button(button));
         return state == 1;
     }
 
     float gamepad::position(gamepad_axis axis) const
     {
-        Sint16 position = SDL_GameControllerGetAxis(controller_.get(), detail::convert_gamepad_axis(axis));
+        Sint16 position = SDL_GameControllerGetAxis(handle_.get(), detail::convert_gamepad_axis(axis));
         return detail::normalize_gamepad_axis(position);
     }
 }

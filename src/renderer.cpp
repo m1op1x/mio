@@ -7,24 +7,24 @@
 namespace mio
 {
     renderer::renderer(const window& window)
-        : renderer_(nullptr, nullptr)
+        : handle_(nullptr, nullptr)
     {
-        renderer_ =
+        handle_ =
         {
             SDL_CreateRenderer(window.native_handle(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE | SDL_RENDERER_PRESENTVSYNC),
             SDL_DestroyRenderer
         };
 
-        if (renderer_ == nullptr)
+        if (handle_ == nullptr)
         {
             throw sdl_error();
         }
     }
 
-    renderer::renderer(SDL_Renderer* renderer)
-        : renderer_(renderer, SDL_DestroyRenderer)
+    renderer::renderer(SDL_Renderer* handle)
+        : handle_(handle, SDL_DestroyRenderer)
     {
-        if (renderer_ == nullptr)
+        if (handle_ == nullptr)
         {
             throw exception("Invalid renderer");
         }
@@ -36,12 +36,12 @@ namespace mio
 
     SDL_Renderer* renderer::native_handle() const
     {
-        return renderer_.get();
+        return handle_.get();
     }
 
     void renderer::logical_size(point<int> size)
     {
-        if (SDL_RenderSetLogicalSize(renderer_.get(), size.x, size.y))
+        if (SDL_RenderSetLogicalSize(handle_.get(), size.x, size.y))
         {
             throw sdl_error();
         }
@@ -50,7 +50,7 @@ namespace mio
     point<int> renderer::logical_size() const
     {
         point<int> size;
-        SDL_RenderGetLogicalSize(renderer_.get(), &size.x, &size.y);
+        SDL_RenderGetLogicalSize(handle_.get(), &size.x, &size.y);
         return size;
     }
 
@@ -64,7 +64,7 @@ namespace mio
             viewport.height
         };
 
-        if (SDL_RenderSetViewport(renderer_.get(), &rect))
+        if (SDL_RenderSetViewport(handle_.get(), &rect))
         {
             throw sdl_error();
         }
@@ -73,7 +73,7 @@ namespace mio
     rectangle<int> renderer::viewport() const
     {
         SDL_Rect rect;
-        SDL_RenderGetViewport(renderer_.get(), &rect);
+        SDL_RenderGetViewport(handle_.get(), &rect);
 
         return rectangle
         {
@@ -86,7 +86,7 @@ namespace mio
 
     void renderer::target(texture* target)
     {
-        if (SDL_SetRenderTarget(renderer_.get(), (target) ? target->native_handle() : nullptr))
+        if (SDL_SetRenderTarget(handle_.get(), (target) ? target->native_handle() : nullptr))
         {
             throw sdl_error();
         }
@@ -94,12 +94,12 @@ namespace mio
 
     void renderer::clear(color color)
     {
-        if (SDL_SetRenderDrawColor(renderer_.get(), color.r, color.g, color.b, color.a))
+        if (SDL_SetRenderDrawColor(handle_.get(), color.r, color.g, color.b, color.a))
         {
             throw sdl_error();
         }
 
-        if (SDL_RenderClear(renderer_.get()))
+        if (SDL_RenderClear(handle_.get()))
         {
             throw sdl_error();
         }
@@ -107,12 +107,12 @@ namespace mio
 
     void renderer::draw_point(point<float> point, color color)
     {
-        if (SDL_SetRenderDrawColor(renderer_.get(), color.r, color.g, color.b, color.a))
+        if (SDL_SetRenderDrawColor(handle_.get(), color.r, color.g, color.b, color.a))
         {
             throw sdl_error();
         }
 
-        if (SDL_RenderDrawPointF(renderer_.get(), point.x, point.y))
+        if (SDL_RenderDrawPointF(handle_.get(), point.x, point.y))
         {
             throw sdl_error();
         }
@@ -120,12 +120,12 @@ namespace mio
 
     void renderer::draw_line(point<float> begin, point<float> end, color color)
     {
-        if (SDL_SetRenderDrawColor(renderer_.get(), color.r, color.g, color.b, color.a))
+        if (SDL_SetRenderDrawColor(handle_.get(), color.r, color.g, color.b, color.a))
         {
             throw sdl_error();
         }
 
-        if (SDL_RenderDrawLineF(renderer_.get(), begin.x, begin.y, end.x, end.y))
+        if (SDL_RenderDrawLineF(handle_.get(), begin.x, begin.y, end.x, end.y))
         {
             throw sdl_error();
         }
@@ -133,7 +133,7 @@ namespace mio
 
     void renderer::draw_circle(circle<int> circle, color color)
     {
-        if (SDL_SetRenderDrawColor(renderer_.get(), color.r, color.g, color.b, color.a))
+        if (SDL_SetRenderDrawColor(handle_.get(), color.r, color.g, color.b, color.a))
         {
             throw sdl_error();
         }
@@ -148,14 +148,14 @@ namespace mio
         {
             int errors = 0;
 
-            errors |= SDL_RenderDrawPoint(renderer_.get(), circle.x + offset_x, circle.y + offset_y);
-            errors |= SDL_RenderDrawPoint(renderer_.get(), circle.x + offset_y, circle.y + offset_x);
-            errors |= SDL_RenderDrawPoint(renderer_.get(), circle.x - offset_x, circle.y + offset_y);
-            errors |= SDL_RenderDrawPoint(renderer_.get(), circle.x - offset_y, circle.y + offset_x);
-            errors |= SDL_RenderDrawPoint(renderer_.get(), circle.x + offset_x, circle.y - offset_y);
-            errors |= SDL_RenderDrawPoint(renderer_.get(), circle.x + offset_y, circle.y - offset_x);
-            errors |= SDL_RenderDrawPoint(renderer_.get(), circle.x - offset_x, circle.y - offset_y);
-            errors |= SDL_RenderDrawPoint(renderer_.get(), circle.x - offset_y, circle.y - offset_x);
+            errors |= SDL_RenderDrawPoint(handle_.get(), circle.x + offset_x, circle.y + offset_y);
+            errors |= SDL_RenderDrawPoint(handle_.get(), circle.x + offset_y, circle.y + offset_x);
+            errors |= SDL_RenderDrawPoint(handle_.get(), circle.x - offset_x, circle.y + offset_y);
+            errors |= SDL_RenderDrawPoint(handle_.get(), circle.x - offset_y, circle.y + offset_x);
+            errors |= SDL_RenderDrawPoint(handle_.get(), circle.x + offset_x, circle.y - offset_y);
+            errors |= SDL_RenderDrawPoint(handle_.get(), circle.x + offset_y, circle.y - offset_x);
+            errors |= SDL_RenderDrawPoint(handle_.get(), circle.x - offset_x, circle.y - offset_y);
+            errors |= SDL_RenderDrawPoint(handle_.get(), circle.x - offset_y, circle.y - offset_x);
 
             if (errors != 0)
             {
@@ -178,7 +178,7 @@ namespace mio
 
     void renderer::fill_circle(circle<int> circle, color color)
     {
-        if (SDL_SetRenderDrawColor(renderer_.get(), color.r, color.g, color.b, color.a))
+        if (SDL_SetRenderDrawColor(handle_.get(), color.r, color.g, color.b, color.a))
         {
             throw sdl_error();
         }
@@ -193,10 +193,10 @@ namespace mio
         {
             int errors = 0;
 
-            errors |= SDL_RenderDrawLine(renderer_.get(), circle.x - offset_x, circle.y + offset_y, circle.x + offset_x, circle.y + offset_y);
-            errors |= SDL_RenderDrawLine(renderer_.get(), circle.x - offset_y, circle.y + offset_x, circle.x + offset_y, circle.y + offset_x);
-            errors |= SDL_RenderDrawLine(renderer_.get(), circle.x - offset_x, circle.y - offset_y, circle.x + offset_x, circle.y - offset_y);
-            errors |= SDL_RenderDrawLine(renderer_.get(), circle.x - offset_y, circle.y - offset_x, circle.x + offset_y, circle.y - offset_x);
+            errors |= SDL_RenderDrawLine(handle_.get(), circle.x - offset_x, circle.y + offset_y, circle.x + offset_x, circle.y + offset_y);
+            errors |= SDL_RenderDrawLine(handle_.get(), circle.x - offset_y, circle.y + offset_x, circle.x + offset_y, circle.y + offset_x);
+            errors |= SDL_RenderDrawLine(handle_.get(), circle.x - offset_x, circle.y - offset_y, circle.x + offset_x, circle.y - offset_y);
+            errors |= SDL_RenderDrawLine(handle_.get(), circle.x - offset_y, circle.y - offset_x, circle.x + offset_y, circle.y - offset_x);
 
             if (errors != 0)
             {
@@ -227,12 +227,12 @@ namespace mio
             rectangle.height
         };
 
-        if (SDL_SetRenderDrawColor(renderer_.get(), color.r, color.g, color.b, color.a))
+        if (SDL_SetRenderDrawColor(handle_.get(), color.r, color.g, color.b, color.a))
         {
             throw sdl_error();
         }
 
-        if (SDL_RenderDrawRectF(renderer_.get(), &dstrect))
+        if (SDL_RenderDrawRectF(handle_.get(), &dstrect))
         {
             throw sdl_error();
         }
@@ -248,12 +248,12 @@ namespace mio
             rectangle.height
         };
 
-        if (SDL_SetRenderDrawColor(renderer_.get(), color.r, color.g, color.b, color.a))
+        if (SDL_SetRenderDrawColor(handle_.get(), color.r, color.g, color.b, color.a))
         {
             throw sdl_error();
         }
 
-        if (SDL_RenderFillRectF(renderer_.get(), &dstrect))
+        if (SDL_RenderFillRectF(handle_.get(), &dstrect))
         {
             throw sdl_error();
         }
@@ -271,7 +271,7 @@ namespace mio
             static_cast<float>(height)
         };
 
-        if (SDL_RenderCopyF(renderer_.get(), texture.native_handle(), nullptr, &dstrect))
+        if (SDL_RenderCopyF(handle_.get(), texture.native_handle(), nullptr, &dstrect))
         {
             throw sdl_error();
         }
@@ -309,7 +309,7 @@ namespace mio
             scale.y * origin.y
         };
 
-        if (SDL_RenderCopyExF(renderer_.get(), texture.native_handle(), nullptr, &dstrect, rotation, &center, flip))
+        if (SDL_RenderCopyExF(handle_.get(), texture.native_handle(), nullptr, &dstrect, rotation, &center, flip))
         {
             throw sdl_error();
         }
@@ -325,7 +325,7 @@ namespace mio
             destination.height
         };
 
-        if (SDL_RenderCopyF(renderer_.get(), texture.native_handle(), nullptr, &dstrect))
+        if (SDL_RenderCopyF(handle_.get(), texture.native_handle(), nullptr, &dstrect))
         {
             throw sdl_error();
         }
@@ -349,7 +349,7 @@ namespace mio
             static_cast<float>(source.height)
         };
 
-        if (SDL_RenderCopyF(renderer_.get(), texture.native_handle(), &srcrect, &dstrect))
+        if (SDL_RenderCopyF(handle_.get(), texture.native_handle(), &srcrect, &dstrect))
         {
             throw sdl_error();
         }
@@ -393,7 +393,7 @@ namespace mio
             scale.y * origin.y
         };
 
-        if (SDL_RenderCopyExF(renderer_.get(), texture.native_handle(), &srcrect, &dstrect, rotation, &center, flip))
+        if (SDL_RenderCopyExF(handle_.get(), texture.native_handle(), &srcrect, &dstrect, rotation, &center, flip))
         {
             throw sdl_error();
         }
@@ -417,7 +417,7 @@ namespace mio
             destination.height
         };
 
-        if (SDL_RenderCopyF(renderer_.get(), texture.native_handle(), &srcrect, &dstrect))
+        if (SDL_RenderCopyF(handle_.get(), texture.native_handle(), &srcrect, &dstrect))
         {
             throw sdl_error();
         }
@@ -425,6 +425,6 @@ namespace mio
 
     void renderer::present()
     {
-        SDL_RenderPresent(renderer_.get());
+        SDL_RenderPresent(handle_.get());
     }
 }

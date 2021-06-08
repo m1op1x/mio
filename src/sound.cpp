@@ -6,26 +6,26 @@
 namespace mio
 {
     sound::sound(const std::string& filename)
-        : chunk_(nullptr, nullptr)
+        : handle_(nullptr, nullptr)
     {
-        chunk_ =
+        handle_ =
         {
             Mix_LoadWAV(filename.c_str()),
             Mix_FreeChunk
         };
 
-        if (chunk_ == nullptr)
+        if (handle_ == nullptr)
         {
             throw mix_error();
         }
     }
 
-    sound::sound(Mix_Chunk* chunk)
-        : chunk_(chunk, Mix_FreeChunk)
+    sound::sound(Mix_Chunk* handle)
+        : handle_(handle, Mix_FreeChunk)
     {
-        if (chunk_ == nullptr)
+        if (handle_ == nullptr)
         {
-            throw exception("Invalid chunk");
+            throw exception("Invalid handle");
         }
     }
 
@@ -35,6 +35,6 @@ namespace mio
 
     Mix_Chunk* sound::native_handle() const
     {
-        return chunk_.get();
+        return handle_.get();
     }
 }

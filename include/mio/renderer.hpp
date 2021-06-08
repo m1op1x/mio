@@ -18,7 +18,7 @@ namespace mio
     public:
         renderer(const window& window);
 
-        renderer(SDL_Renderer* renderer);
+        renderer(SDL_Renderer* handle);
 
         renderer(const renderer&) = delete;
 
@@ -71,6 +71,6 @@ namespace mio
         void present();
 
     private:
-        std::unique_ptr<SDL_Renderer, void (*)(SDL_Renderer*)> renderer_;
+        std::unique_ptr<SDL_Renderer, void (*)(SDL_Renderer*)> handle_;
     };
 }

@@ -7,20 +7,20 @@
 namespace mio
 {
     image::image(int width, int height, color color)
-        : surface_(nullptr, nullptr)
+        : handle_(nullptr, nullptr)
     {
-        surface_ =
+        handle_ =
         {
             SDL_CreateRGBSurfaceWithFormat(0, width, height, 32, SDL_PIXELFORMAT_RGBA32),
             SDL_FreeSurface
         };
 
-        if (surface_ == nullptr)
+        if (handle_ == nullptr)
         {
             throw sdl_error();
         }
 
-        auto pixels = static_cast<std::uint8_t*>(surface_->pixels);
+        auto pixels = static_cast<std::uint8_t*>(handle_->pixels);
         for (int i = 0; i < width * height; i++)
         {
             pixels[i * 4 + 0] = color.r;
@@ -31,24 +31,24 @@ namespace mio
     }
 
     image::image(const std::string& filename)
-        : surface_(nullptr, nullptr)
+        : handle_(nullptr, nullptr)
     {
-        surface_ =
+        handle_ =
         {
             IMG_Load(filename.c_str()),
             SDL_FreeSurface
         };
 
-        if (surface_ == nullptr)
+        if (handle_ == nullptr)
         {
             throw img_error();
         }
     }
 
-    image::image(SDL_Surface* surface)
-        : surface_(surface, SDL_FreeSurface)
+    image::image(SDL_Surface* handle)
+        : handle_(handle, SDL_FreeSurface)
     {
-        if (surface_ == nullptr)
+        if (handle_ == nullptr)
         {
             throw exception("Invalid surface");
         }
@@ -60,11 +60,11 @@ namespace mio
 
     SDL_Surface* image::native_handle() const
     {
-        return surface_.get();
+        return handle_.get();
     }
 
     mio::point<int> image::size() const
     {
-        return point(surface_->w, surface_->h);
+        return point(handle_->w, handle_->h);
     }
 }

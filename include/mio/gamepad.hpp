@@ -15,7 +15,7 @@ namespace mio
 
         gamepad(int device_index);
 
-        gamepad(SDL_GameController* controller);
+        gamepad(SDL_GameController* handle);
 
         SDL_GameController* native_handle() const;
 
@@ -28,6 +28,6 @@ namespace mio
         float position(gamepad_axis axis) const;
 
     private:
-        std::shared_ptr<SDL_GameController> controller_;
+        std::shared_ptr<SDL_GameController> handle_;
     };
 }

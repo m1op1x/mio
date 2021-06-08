@@ -22,7 +22,7 @@ namespace mio
 
         texture(const renderer& renderer, const image& image);
 
-        texture(SDL_Texture* texture);
+        texture(SDL_Texture* handle);
 
         texture(const texture&) = delete;
 
@@ -41,6 +41,6 @@ namespace mio
         point<int> size() const;
 
     private:
-        std::unique_ptr<SDL_Texture, void (*)(SDL_Texture*)> texture_;
+        std::unique_ptr<SDL_Texture, void (*)(SDL_Texture*)> handle_;
     };
 }
