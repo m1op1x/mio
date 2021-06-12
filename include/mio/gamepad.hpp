@@ -21,9 +21,9 @@ namespace mio
 
         int instance_id() const;
 
-        bool is_connected() const;
+        bool connected() const;
 
-        bool is_pressed(gamepad_button button) const;
+        bool pressed(gamepad_button button) const;
 
         float position(gamepad_axis axis) const;
 

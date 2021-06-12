@@ -5,7 +5,7 @@
 
 namespace mio::mouse
 {
-    bool is_pressed(mouse_button button);
+    bool pressed(mouse_button button);
 
     void position(point<int> position);
 

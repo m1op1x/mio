@@ -5,7 +5,7 @@
 
 namespace mio::keyboard
 {
-    bool is_pressed(scancode key)
+    bool pressed(scancode key)
     {
         const Uint8* state = SDL_GetKeyboardState(nullptr);
         return state[detail::convert_scancode(key)];

@@ -6,7 +6,7 @@
 
 namespace mio::mouse
 {
-    bool is_pressed(mouse_button button)
+    bool pressed(mouse_button button)
     {
         Uint32 state = SDL_GetMouseState(nullptr, nullptr);
         return state & SDL_BUTTON(detail::convert_mouse_button(button));

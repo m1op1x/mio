@@ -59,12 +59,12 @@ namespace mio
         return instance_id;
     }
 
-    bool gamepad::is_connected() const
+    bool gamepad::connected() const
     {
         return SDL_GameControllerGetAttached(handle_.get());
     }
 
-    bool gamepad::is_pressed(gamepad_button button) const
+    bool gamepad::pressed(gamepad_button button) const
     {
         Uint8 state = SDL_GameControllerGetButton(handle_.get(), detail::convert_gamepad_button(button));
         return state == 1;

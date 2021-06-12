@@ -4,5 +4,5 @@
 
 namespace mio::keyboard
 {
-    bool is_pressed(scancode key);
+    bool pressed(scancode key);
 }
