@@ -8,7 +8,7 @@ namespace mio
     class exception : public std::exception
     {
     public:
-        exception(std::string what);
+        exception(std::string_view what);
 
         const char* what() const noexcept override;
 

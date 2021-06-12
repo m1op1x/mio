@@ -7,8 +7,8 @@
 
 namespace mio
 {
-    exception::exception(std::string what)
-        : what_(std::move(what))
+    exception::exception(std::string_view what)
+        : what_(what)
     {
     }
 
