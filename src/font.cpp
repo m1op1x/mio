@@ -39,7 +39,7 @@ namespace mio
         return handle_.get();
     }
 
-    point<int> font::measure(const std::string& text) const
+    point<int> font::size_of(const std::string& text) const
     {
         point<int> size;
         if (TTF_SizeText(handle_.get(), text.c_str(), &size.x, &size.y))

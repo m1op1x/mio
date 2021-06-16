@@ -29,7 +29,7 @@ namespace mio
 
         TTF_Font* native_handle() const;
 
-        point<int> measure(const std::string& text) const;
+        point<int> size_of(const std::string& text) const;
 
         image render(const std::string& text, mio::color color) const;
 
