@@ -25,7 +25,7 @@ namespace mio
     {
         if (handle_ == nullptr)
         {
-            throw exception("Invalid handle");
+            throw exception("Invalid chunk");
         }
     }
 
