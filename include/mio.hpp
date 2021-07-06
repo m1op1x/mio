@@ -13,6 +13,7 @@
 #include <mio/gamepad.hpp>
 #include <mio/image.hpp>
 #include <mio/keyboard.hpp>
+#include <mio/locator.hpp>
 #include <mio/math.hpp>
 #include <mio/mixer.hpp>
 #include <mio/mouse_button.hpp>
