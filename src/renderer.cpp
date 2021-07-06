@@ -54,7 +54,7 @@ namespace mio
         return size;
     }
 
-     void renderer::viewport(rectangle<int> viewport)
+    void renderer::viewport(rectangle<int> viewport)
     {
         SDL_Rect rect
         {
