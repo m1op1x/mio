@@ -26,11 +26,9 @@ namespace mio
     texture::texture(const renderer& renderer, const std::string& filename)
         : handle_(nullptr, nullptr)
     {
-        std::unique_ptr<SDL_Surface, void (*)(SDL_Surface*)> surface
-        {
+        std::unique_ptr<SDL_Surface, void (*)(SDL_Surface*)> surface(
             IMG_Load(filename.c_str()),
-            SDL_FreeSurface
-        };
+            SDL_FreeSurface);
 
         if (surface == nullptr)
         {

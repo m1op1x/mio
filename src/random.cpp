@@ -3,7 +3,7 @@
 namespace mio
 {
     random::random()
-        : seed_(std::random_device {}())
+        : seed_(std::random_device()())
         , engine_(seed_)
     {
     }

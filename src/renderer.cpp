@@ -72,16 +72,14 @@ namespace mio
 
     rectangle<int> renderer::viewport() const
     {
-        SDL_Rect rect;
-        SDL_RenderGetViewport(handle_.get(), &rect);
+        SDL_Rect viewport;
+        SDL_RenderGetViewport(handle_.get(), &viewport);
 
-        return rectangle
-        {
-            rect.x,
-            rect.y,
-            rect.w,
-            rect.h
-        };
+        return rectangle(
+            viewport.x,
+            viewport.y,
+            viewport.w,
+            viewport.h);
     }
 
     void renderer::target(texture* target)
@@ -133,12 +131,12 @@ namespace mio
 
     void renderer::draw_circle(circle<int> circle, color color)
     {
+        // Midpoint circle drawing algorithm.
+
         if (SDL_SetRenderDrawColor(handle_.get(), color.r, color.g, color.b, color.a))
         {
             throw sdl_error();
         }
-
-        // Midpoint circle drawing algorithm.
 
         int decision = 1 - circle.radius;
         int offset_y = circle.radius;
@@ -178,12 +176,12 @@ namespace mio
 
     void renderer::fill_circle(circle<int> circle, color color)
     {
+        // Midpoint circle drawing algorithm.
+
         if (SDL_SetRenderDrawColor(handle_.get(), color.r, color.g, color.b, color.a))
         {
             throw sdl_error();
         }
-
-        // Midpoint circle drawing algorithm.
 
         int decision = 1 - circle.radius;
         int offset_y = circle.radius;

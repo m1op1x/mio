@@ -79,6 +79,6 @@ namespace mio::detail
     {
         return position < 0
             ? -static_cast<float>(position) / std::numeric_limits<Sint16>::min()
-            :  static_cast<float>(position) / std::numeric_limits<Sint16>::max();
+            : static_cast<float>(position) / std::numeric_limits<Sint16>::max();
     }
 }

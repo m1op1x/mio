@@ -72,10 +72,7 @@ namespace mio
                 }
                 case SDL_CONTROLLERDEVICEREMOVED:
                 {
-                    return gamepad_disconnect_event
-                    {
-                        event.cdevice.which
-                    };
+                    return gamepad_disconnect_event { event.cdevice.which };
                 }
                 case SDL_CONTROLLERBUTTONDOWN:
                 {
@@ -117,10 +114,7 @@ namespace mio
                         }
                         case SDL_WINDOWEVENT_CLOSE:
                         {
-                            return window_close_event
-                            {
-                                event.window.windowID
-                            };
+                            return window_close_event { event.window.windowID };
                         }
                     }
                     break;

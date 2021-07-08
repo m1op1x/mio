@@ -8,5 +8,4 @@ namespace mio
         dynamic,
         target
     };
-
 }

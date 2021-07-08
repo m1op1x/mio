@@ -24,7 +24,7 @@ namespace mio
         static void reset();
 
     private:
-        inline static std::shared_ptr<Service> service_ {};
+        inline static std::shared_ptr<Service> service_ = nullptr;
     };
 }
 
